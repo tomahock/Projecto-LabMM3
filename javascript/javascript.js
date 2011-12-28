@@ -47,7 +47,6 @@ function spaceInvaders(){
 				document.getElementById(idML).style.marginLeft = '15px';
 				document.getElementById(idML).style.marginTop = '15px';
 				desenhaMob(i, k, idML);
-				//document.getElementById(idML).innerHTML = '<span>Mob '+ k + '</span>';
 				if(k===10){
 					document.getElementById(idL).innerHTML += '<div style="clear:both;"></div>';
 				}
@@ -74,7 +73,7 @@ function desenhaMob(i, k, idML){
 		       break;
 		case 3: for(var y=0;y<=mob01a.length-1;y++){
 		            for(var x=0;x<=mob01a[y].length-1;x++){
-		               document.getElementById(idML).innerHTML+='<span class="'+mob01a[y][x]+'">*</span>';
+		               document.getElementById(idML).innerHTML+='<span class="'+mob03a[y][x]+'">*</span>';
 		            }
 		            document.getElementById(idML).innerHTML += '</br>';
 		       }
