@@ -1,5 +1,6 @@
 //* variaveis
 
+var mobexplode01=new Array();var mobexplode02=new Array();var mobexplode03=new Array();
 var mob01a=new Array();var mob01b=new Array();
 var mob02a=new Array();var mob02b=new Array();
 var mob03a=new Array();var mob03b=new Array();
@@ -7,6 +8,37 @@ var mob04=new Array();
 var mob05=new Array();
 var mob06=new Array();
 var mob07=new Array();
+
+//* mob explode 01 - mob explosion
+
+mobexplode01[0]=new Array('b','p','p','b','p','p','p','p','b','p','p','b');
+mobexplode01[1]=new Array('p','b','p','p','b','p','p','b','p','p','b','p');
+mobexplode01[2]=new Array('p','p','b','p','p','b','b','p','p','b','p','p');
+mobexplode01[3]=new Array('b','p','p','b','p','p','p','p','b','p','p','b');
+mobexplode01[4]=new Array('b','p','p','b','p','p','p','p','b','p','p','b');
+mobexplode01[5]=new Array('p','p','b','p','p','b','b','p','p','b','p','p');
+mobexplode01[6]=new Array('p','b','p','p','b','p','p','b','p','p','b','p');
+mobexplode01[7]=new Array('b','p','p','b','p','p','p','p','b','p','p','b');
+
+//* mob explode 02 - alien boss explosion
+
+mobexplode02[0]=new Array('b','p','p','b','p','p','b','p','p','b','p','p','b','p','p','b');
+mobexplode02[1]=new Array('p','b','p','p','b','p','p','b','b','p','p','b','p','p','b','p');
+mobexplode02[2]=new Array('p','p','b','p','p','b','p','p','p','p','b','p','p','b','p','p');
+mobexplode02[3]=new Array('b','p','p','b','p','p','b','p','p','b','p','p','b','p','p','b');
+mobexplode02[4]=new Array('p','p','b','p','p','b','p','p','p','p','b','p','p','b','p','p');
+mobexplode02[5]=new Array('p','b','p','p','b','p','p','b','b','p','p','b','p','p','b','p');
+mobexplode02[6]=new Array('b','p','p','b','p','p','b','p','p','b','p','p','b','p','p','b');
+
+//* mob explode 03 - space ship explosion
+
+mobexplode03[0]=new Array('b','p','p','b','p','p','b','p','b','p','p','b','p','p','b');
+mobexplode03[1]=new Array('p','b','p','p','b','p','p','b','p','p','b','p','p','b','p');
+mobexplode03[2]=new Array('p','p','b','p','p','b','p','p','p','b','p','p','b','p','p');
+mobexplode03[3]=new Array('b','p','p','b','p','p','b','p','b','p','p','b','p','p','b');
+mobexplode03[4]=new Array('p','p','b','p','p','b','p','p','p','b','p','p','b','p','p');
+mobexplode03[5]=new Array('p','b','p','p','b','p','p','b','p','p','b','p','p','b','p');
+mobexplode03[6]=new Array('b','p','p','b','p','p','b','p','b','p','p','b','p','p','b');
 
 //* mob 01 - aliens I
 
