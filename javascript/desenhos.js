@@ -1,5 +1,6 @@
 //* variaveis
 
+
 var mobexplode01=new Array();var mobexplode02=new Array();var mobexplode03=new Array();
 var mob01a=new Array();var mob01b=new Array();
 var mob02a=new Array();var mob02b=new Array();

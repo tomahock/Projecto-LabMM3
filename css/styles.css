@@ -4,7 +4,10 @@
      background: #000000;
 }
 
-
+#wrapper{
+	 margin:               0px auto;
+	 width:	1024px;
+}
 
 /* cores caracteres */
 
