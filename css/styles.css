@@ -9,7 +9,7 @@
 
 #wrapper{
 	 margin:               0px auto;
-	 width:	1024px;
+	 width:	900px;
 }
 
 /* cores caracteres */
@@ -112,3 +112,9 @@ span{
 	z-index: 1;
 }
 
+#estado1{
+	margin-left: 58px;
+}
+#estado2{
+	margin-left: 58px;
+}

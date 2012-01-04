@@ -3,7 +3,19 @@ $(document).ready(function() {
 	var tiros = []; //array ids dos tiros
 	var tirosT = []; // array ids Timers dos tiros
 	var trocaMob; // setInterval trocaMobs();
-	var estadoMob = false;
+	var estadoMob = false; // variavel para ajuda da permutação dos mobs
+	var moveMobs; // setInterval moveMobs
+	var moveMoL = true; //controlo de direcção da deslocação dos monstros
+	//jquery Vars
+	/**************
+	 * TODO variaveis do jQuery para poupar recursos.
+	 */
+	
+	
+	//var $elEstado2 = $('#estado2');
+	//var $elEstado1 = $('#estado1');
+	
+	
 	
 	$.ajax({
 	  url: 'javascript/desenhos.js',
@@ -25,7 +37,7 @@ $(document).ready(function() {
 				for(var k = 1; k<=10; k++){ // 10 mobs por linha
 					var idML = 'amob0'+i+'L'+j+'P'+k; // id da div do mob i da linha L
 					$('#'+idL).append('<div id="'+idML+'"></div>');
-					$('#'+idML).css({'float' : 'left', 'margin-left' : '15px', 'margin-top' : '15px'});
+					$('#'+idML).css({'float' : 'left', 'margin-left' : '15px', 'margin-top' : '15px' , 'position' : 'relative'});
 					desenhaMob(i, k, idML, tipo);
 					if(k===10){
 						$('#'+idL).append('<div style="clear:both;"></div>');
@@ -48,7 +60,7 @@ $(document).ready(function() {
 				for(var k = 1; k<=10; k++){ // 10 mobs por linha
 					var idML = 'bmob0'+i+'L'+j+'P'+k; // id da div do mob i da linha L
 					$('#'+idL).append('<div id="'+idML+'"></div>');
-					$('#'+idML).css({'float' : 'left', 'margin-left' : '15px', 'margin-top' : '15px'});
+					$('#'+idML).css({'float' : 'left', 'margin-left' : '15px', 'margin-top' : '15px' , 'position' : 'relative'});
 					desenhaMob(i, k, idML, tipo);
 					if(k===10){
 						$('#'+idL).append('<div style="clear:both;"></div>');
@@ -74,24 +86,66 @@ $(document).ready(function() {
 		//permutação dos vários mobs
 		
 		trocaMob = setInterval(function(){
-			if(!estadoMob){
-				var estado1 = 'block';
-				var estado2 = 'none';
+			if(estadoMob){
+				$('#estado2').hide();
+				$('#estado1').show();
 			}else{
-				var estado1 = 'none';
-				var estado2 = 'block';
+				$('#estado1').hide();
+				$('#estado2').show();
 			}
 			
-			$('#estado2').css({'display' : estado1});
-			$('#estado1').css({'display' : estado2});
+			
 			
 			if(estadoMob){
 				estadoMob = false;
 			}else{
 				estadoMob = true;
 			}
-		}, 500);
+		}, 1000);
 		
+		
+		//move os monstros de um lado p o outro e para baixo.
+		
+		moveMobs = setInterval(function(){
+			if(moveMoL){
+				var marginLActual = parseInt($('#estado1').css('margin-left'), 10);
+				marginLActual -= 10;
+				if(marginLActual>0){
+					$('#estado1').css({'margin-left' : marginLActual});
+					$('#estado2').css({'margin-left' : marginLActual});
+				}else{
+					var marginTActual = parseInt($('#estado1').css('margin-top'), 10);
+					marginTActual += 10;
+					if(marginTActual<200){
+						$('#estado1').css({'margin-top' : marginTActual});
+						$('#estado2').css({'margin-top' : marginTActual});
+					}else{
+						gameOver();
+					}
+					moveMoL = false;
+				}
+			}else{
+				var marginLActual = parseInt($('#estado1').css('margin-left'), 10);
+				marginLActual += 10;
+				if(marginLActual<100){
+					$('#estado1').css({'margin-left' : marginLActual});
+					$('#estado2').css({'margin-left' : marginLActual});
+				}else{
+					var marginTActual = parseInt($('#estado1').css('margin-top'), 10);
+					marginTActual += 10;
+					if(marginTActual<200){
+						$('#estado1').css({'margin-top' : marginTActual});
+						$('#estado2').css({'margin-top' : marginTActual});
+					}else{
+						gameOver();
+					}
+					moveMoL = true;
+				}
+			}
+			
+			
+			
+		},1000);
 	} //end function spaceInvaders()
 
 
@@ -178,9 +232,13 @@ $(document).ready(function() {
 		
 		tirosT[tirosT.length] = setInterval(function(){
 			var offTiro = $('#'+tiros[tiros.length-1]).offset();
-			$('#'+tiros[tiros.length-1]).offset({'top' : offTiro.top-5});
-			colide(tiros[tiros.length-1]);
-		}, 100);
+			var newTop = offTiro.top-5;
+			$('#'+tiros[tiros.length-1]).offset({'top' : newTop});
+				colide(tiros[tiros.length-1]);
+			if(newTop < -5 ){
+				clearInterval(tirosT[tirosT.length-1]);
+			}
+		}, 50);
 		$('body').scrollTop($('body').height());
 		$('body').scrollLeft($('body').width());
 	}
@@ -220,6 +278,63 @@ $(document).ready(function() {
 	}
 
 	function colide(idTiro){
-
+		if(!estadoMob){
+			for(var i = 3; i>= 1; i--){ 
+				var idM = 'amob0' + i; //id mob
+				for(var j = 1; j <= 2;j++){ 
+					idL = 'alinha' + j + 'mob' + i; //ID da linha
+					offLinha = $('#' + idL).offset();
+					offTiro = $('#' + idTiro).offset();
+					if(offTiro.top > offLinha.top && offTiro.top < (offLinha.top+32)){
+						//console.log('Inside Line: ' + idL);
+						for(var k = 1; k<=10; k++){
+							var idML = 'amob0'+i+'L'+j+'P'+k; // id da div do mob i da linha L
+							var offMob = $('#' + idML).offset();
+							console.log('offMob left: ' + offMob.left + ' mob: ' + idML);
+							if(offTiro.left>offMob.left && offTiro.left<(offMob.left+32)){
+								console.log('Bummm no mob: ' + idML);
+								clearInterval(idTiro);
+								$('#' + idTiro).remove();
+								$('#' + idML).remove();
+							}
+						}
+					}
+					//console.log('offLinha top:' + offLinha.top + ' , offLinha Left: ' + offLinha.left + ' , offTiro Top: ' + offTiro.top + ' , offTiro Left: + ' + offTiro.left );
+				}
+			}
+		}else{
+			for(var i = 3; i>= 1; i--){ 
+				var idM = 'bmob0' + i; //id mob
+				for(var j = 1; j <= 2;j++){ 
+					idL = 'blinha' + j + 'mob' + i; //ID da linha
+					offLinha = $('#' + idL).offset();
+					offTiro = $('#' + idTiro).offset();
+					if(offTiro.top > offLinha.top && offTiro.top < (offLinha.top+32)){
+						//console.log('Inside Line: ' + idL);
+						for(var k = 1; k<=10; k++){
+							var idML = 'bmob0'+i+'L'+j+'P'+k; // id da div do mob i da linha L
+							var offMob = $('#' + idML).offset();
+							console.log('offMob left: ' + offMob.left + ' mob: ' + idML);
+							if(offTiro.left>offMob.left && offTiro.left<(offMob.left+32)){
+								console.log('Bummm no mob: ' + idML);
+								clearInterval(idTiro);
+								$('#' + idTiro).remove();
+								$('#' + idML).remove();
+							}
+						}
+					}
+					//console.log('offLinha top:' + offLinha.top + ' , offLinha Left: ' + offLinha.left + ' , offTiro Top: ' + offTiro.top + ' , offTiro Left: + ' + offTiro.left );
+				}
+			}
+		}
+	}
+	
+	function gameOver(){
+		for(var i = 0; i<=tirosT.length-1;i++){
+			clearInterval(tirosT[i]); 
+		}
+		clearInterval(trocaMob);
+		clearInterval(moveMobs);
+		alert('GameOver');
 	}
 });
