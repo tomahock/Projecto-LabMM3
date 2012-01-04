@@ -47,8 +47,8 @@ span{
 
 #stage{
     color: white;
-    font-size: 80%;
-    line-height: 80%;
+    font-size: 50%;
+    line-height: 50%;
 }
 
 #mob01a, #mob01b{
@@ -105,5 +105,10 @@ span{
     left: 60%;
     font-size: 50%;
     line-height: 50%;
+}
+
+.tiro{
+	color: #FFFF00;
+	z-index: 1;
 }
 
