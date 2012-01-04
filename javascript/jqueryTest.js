@@ -14,9 +14,10 @@ $(document).ready(function() {
 	function spaceInvaders(){
 		tipo = 'a';
 		//colocar os monstro no stage
+		$('#stage').append('<div id="estado1"></div>')
 		for(var i = 3; i>= 1; i--){ // 3 mobs diferentes
 			var idM = 'amob0' + i; //id mob
-			$('#stage').append('<div id="'+idM+'"></div>');
+			$('#estado1').append('<div id="'+idM+'"></div>');
 			for(var j = 1; j <= 2;j++){ // 2 linhas diferentes
 				idL = 'alinha' + j + 'mob' + i; //ID da linha
 				$('#'+idM).append('<div id="'+idL+'"></div>');
@@ -35,9 +36,11 @@ $(document).ready(function() {
 		
 		//coloca os monstros alternativos no stage
 		tipo = 'b';
+		$('#stage').append('<div id="estado2"></div>')
+		$('estado2').css({'display' : 'none'});
 		for(var i = 3; i>= 1; i--){ // 3 mobs diferentes
 			var idM = 'bmob0' + i; //id mob
-			$('#stage').append('<div id="'+idM+'"></div>');
+			$('#estado2').append('<div id="'+idM+'"></div>');
 			for(var j = 1; j <= 2;j++){ // 2 linhas diferentes
 				idL = 'blinha' + j + 'mob' + i; //ID da linha
 				$('#'+idM).append('<div id="'+idL+'"></div>');
@@ -45,7 +48,7 @@ $(document).ready(function() {
 				for(var k = 1; k<=10; k++){ // 10 mobs por linha
 					var idML = 'bmob0'+i+'L'+j+'P'+k; // id da div do mob i da linha L
 					$('#'+idL).append('<div id="'+idML+'"></div>');
-					$('#'+idML).css({'float' : 'left', 'margin-left' : '15px', 'margin-top' : '15px', 'display' : 'none'});
+					$('#'+idML).css({'float' : 'left', 'margin-left' : '15px', 'margin-top' : '15px'});
 					desenhaMob(i, k, idML, tipo);
 					if(k===10){
 						$('#'+idL).append('<div style="clear:both;"></div>');
@@ -79,27 +82,8 @@ $(document).ready(function() {
 				var estado2 = 'block';
 			}
 			
-			for(var i = 3; i>= 1; i--){ // 3 mobs diferentes
-				var idM = 'bmob0' + i; //id mob
-				for(var j = 1; j <= 2;j++){ // 2 linhas diferentes
-					idL = 'blinha' + j + 'mob' + i; //ID da linha
-					for(var k = 1; k<=10; k++){ // 10 mobs por linha
-						var idML = 'bmob0'+i+'L'+j+'P'+k; // id da div do mob i da linha L
-						$('#'+idML).css({'display' : estado1});
-					}
-				}
-			}
-		
-			for(var i = 3; i>= 1; i--){ // 3 mobs diferentes
-				var idM = 'amob0' + i; //id mob
-				for(var j = 1; j <= 2;j++){ // 2 linhas diferentes
-					idL = 'alinha' + j + 'mob' + i; //ID da linha
-					for(var k = 1; k<=10; k++){ // 10 mobs por linha
-						var idML = 'amob0'+i+'L'+j+'P'+k; // id da div do mob i da linha L
-						$('#'+idML).css({'display' : estado2});
-					}
-				}
-			}
+			$('#estado2').css({'display' : estado1});
+			$('#estado1').css({'display' : estado2});
 			
 			if(estadoMob){
 				estadoMob = false;
