@@ -235,7 +235,7 @@ $(document).ready(function() {
 				colide(tiros.length-1);
 			if(offTiro.top < -15 ){
 				clearInterval(tirosT[tirosT.length-1]);
-				alert('ClearInterval1');
+				console.warn('ClearInterval1');
 			}
 		}, 50));
 		$('body').scrollTop($('body').height());
@@ -293,7 +293,7 @@ $(document).ready(function() {
 							if(offTiro.left>offMob.left && offTiro.left<(offMob.left+32)){
 								//console.log('Bummm no mob: ' + idML);
 								clearInterval(tirosT[idTiro]);
-								alert('ClearInterval2');
+								console.warn('ClearInterval2');
 								$('#' + tiros[idTiro]).remove();
 								$('#' + idML).remove();
 								var idMLs = 'amob0'+i+'L'+j+'P'+(k+1); // id da div do mob seguinte ao colidido
@@ -330,7 +330,7 @@ $(document).ready(function() {
 							if(offTiro.left>offMob.left && offTiro.left<(offMob.left+32)){
 								console.log('Bummm no mob: ' + idML);
 								clearInterval(tirosT[idTiro]);
-								alert('ClearInterval3');
+								console.warn('ClearInterval3');
 								$('#' + tiros[idTiro]).remove();
 								$('#' + idML).remove();
 								//alinhas os mobs nao atingidos
@@ -358,7 +358,7 @@ $(document).ready(function() {
 	function gameOver(){
 		for(var i = 0; i<=tirosT.length-1;i++){
 			clearInterval(tirosT[i]); //limpa todos os setIntervals criados para os tiros
-			alert('ClearInterval4');
+			console.warn('ClearInterval4');
 		}
 		clearInterval(trocaMob);
 		clearInterval(moveMobs);
