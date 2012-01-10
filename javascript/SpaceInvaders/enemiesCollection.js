@@ -1,0 +1,155 @@
+/**
+ * A collection of enemies, that can be organized in groups (rows)
+ * this class will be responsable for moving the mob of enemies (this way, we only move one element with javascript!)
+ * Altough groups and enemies themselves have the ability to move, this way we save a lot of processing power.
+ * This obejct is also responsable for toggling its class from a to b so that all enemies change their appearance,
+ * using CSS (it's always better for the browser/css to do the work instead of javascript)
+ *
+ * Collisions will be checked in phases.
+ * After a shot is fired, this object will track that bullet to check if it collides with the enemiesCollection html object
+ * if it collides
+ * it will check if it's colliding with one of its groups
+ * if its colliding with one of its group
+ * that group will check if it's colliding with any of it's enemies
+ *
+ * this way of checking for collisions is way cheaper than to check if it's colliding with every single enemy in game.
+ *
+ * @version $Rev$
+ * @requires $Rev$
+ */
+SpaceInvaders.enemiesCollection = {
+    /**
+     * SpaceInvaders.enemiesCollection.init
+     * Initializes the object
+     *
+     * @public
+     * @returns {SpaceInvaders.enemiesCollection} this
+     */
+    init: function() {
+        this._groups = [];
+        this._enemies = [];
+
+        return this;
+    },
+
+    getGroup: function(idx) {
+        return this._groups[idx];
+    },
+
+    get: function(idx, group) {
+        if (group) {
+            return this._group[group].get(idx);
+        } else {
+            return this._enemies[idx];
+        }
+    },
+
+    add: function(enemie) {
+        this._enemies.push(enemie);
+        return this;
+    },
+
+    addGroup: function(group, addEnemies) {
+        this._groups.push(group);
+
+        if (addEnemies) {
+            var i = group.size() - 1;
+            for (i; i >= 0; i -= 1) {
+                this.add(group.get(i));
+            }
+        }
+        return this;
+    },
+
+    render: function() {
+        var i = 0,
+            group;
+
+        if (!this._$html) {
+            this._$html = $('<div class="collection"></div>');
+            this._$html.css({
+                position: 'absolute',
+                width: (SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS,
+                height: (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS
+            });
+            if (this._groups.length) {
+                i = this._groups.length - 1;
+                for (i; i >= 0; i -= 1) {
+                    group = this.getGroup(i).render().css('top', (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * i);
+                    this._$html.append(group);
+                }
+            } else {
+                i = this._enemies.length - 1;
+                for (i; i >= 0; i -= 1) {
+                    this._$html.append(this.get(i).render());
+                }
+            }
+            this._$html.addClass('a');
+        }
+
+        return this._$html;
+    },
+
+    animationStart: function() {
+        var toggleClass = function() {
+            if (this._$html.hasClass('a')) {
+                this._$html.removeClass('a').addClass('b');
+            } else {
+                this._$html.removeClass('b').addClass('a');
+            }
+        };
+
+        if (this._interval) {
+            window.clearInterval(this._interval);
+        }
+        this._interval = window.setInterval($.proxy(toggleClass, this), 1000);
+
+        return this;
+    },
+
+    animationStop: function() {
+        if (this._interval) {
+            window.clearInterval(this._interval);
+            this._interval = null;
+            delete this._interval;
+        }
+        return this;
+    },
+
+    move: function() {
+    	var i = 0,
+            group;
+         console.warn(this._groups);
+         /*
+         if (!this._$html) {
+            if (this._groups.length) {
+                i = this._groups.length - 1;
+                for (i; i >= 0; i -= 1) {
+                	var groupLeft = this.getGroup(i).css('left');
+                	console.warn('move left: ' + groupLeft);
+                    group = this.getGroup(i).css('left', groupLeft);
+                }
+            }
+        }
+         
+         
+         
+            /*
+            
+    	this._groups.push(group);
+    	groupLeft = this._$html.css('left');
+    	
+    	console.warn('groupLeft: ' + groupLeft);
+    	*/
+    },
+    remove: function() {},
+    dispose: function() {
+        this.animationStop();
+        var i = 0;
+        if (this._groups.length) {
+            for (i; i >= 0; i -= 1) {
+
+            }
+        }
+    }
+};
