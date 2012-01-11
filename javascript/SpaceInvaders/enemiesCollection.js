@@ -116,31 +116,38 @@ SpaceInvaders.enemiesCollection = {
         return this;
     },
 
-    move: function() {
-    	var i = 0,
-            group;
-         console.warn(this._groups);
-         /*
-         if (!this._$html) {
-            if (this._groups.length) {
-                i = this._groups.length - 1;
-                for (i; i >= 0; i -= 1) {
-                	var groupLeft = this.getGroup(i).css('left');
-                	console.warn('move left: ' + groupLeft);
-                    group = this.getGroup(i).css('left', groupLeft);
-                }
-            }
-        }
-         
-         
-         
-            /*
-            
-    	this._groups.push(group);
-    	groupLeft = this._$html.css('left');
+    move: function(direction, amount) {
     	
-    	console.warn('groupLeft: ' + groupLeft);
-    	*/
+    	var moveDirection = {
+			top : function(amount){
+				this._$html.css('top', parseInt(this._$html.css('top'),10) - amount);
+			},
+			left : function(amount){
+				this._$html.css('left', parseInt(this._$html.css('left'),10) - amount);
+			},
+			right : function(amount){
+				this._$html.css('left', parseInt(this._$html.css('left'),10) + amount);
+			},
+			bottom : function(amount){
+				this._$html.css('top', parseInt(this._$html.css('top'),10) + amount);
+			}
+		}
+		
+		if(!moveDirection){
+			return;
+		}else{
+			moveDirection[direction].call(this, amount);
+		}
+		
+		return this;
+    },
+    dance: function(nivel){
+    	this._interval = window.setInterval($.proxy(function(){
+    		var mov = nivel.shift();
+    		if(mov){
+    			this.move(mov,5);
+    		}
+  		}, this), 1000);
     },
     remove: function() {},
     dispose: function() {

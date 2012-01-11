@@ -31,7 +31,7 @@ $(function() {
         SpaceInvaders.spaceshipsModels = data;
         SpaceInvaders.init();
     });
+    
+    // Corre quando se fecha a janela ou se faz refresh
+	$(window).on('unload', SpaceInvaders.shutdown);
 });
-
-// Corre quando se fecha a janela ou se faz refresh
-$(window).on('unload', SpaceInvaders.shutdown);

@@ -16,6 +16,7 @@ var SpaceInvaders = {
         ENEMY_ROWS : 6,
         ENEMY_TYPES : 3,
         ENEMY_TYPE_NAME : 'alien',
+        PLAYER_TYPE_NAME : 'player',
         ENEMY_WIDTH : 36,
         ENEMY_HEIGHT: 41,
         ENEMY_VERTICAL_MARGIN : 10,
@@ -65,13 +66,17 @@ var SpaceInvaders = {
             i = (j % 2 === 0) ? i -= 1 : i;
             j -= 1;
             
-            this.enemiesCollection.move(group);
         }
-
+		//Player init
+		player = $.beget(SpaceInvaders.player);
+		player.init(SpaceInvaders.spaceshipsModels[this.config.PLAYER_TYPE_NAME]);
+		player.render();
+		
         this.stage.render();
         this.stage.append(this.enemiesCollection.render());
         this.enemiesCollection.animationStart();
-
+		this.enemiesCollection.dance(SpaceInvaders.spaceshipsModels.nivel1);
+		
         return this;
     },
     /**

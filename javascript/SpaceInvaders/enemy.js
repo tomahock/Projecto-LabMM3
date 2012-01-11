@@ -12,7 +12,37 @@ SpaceInvaders.enemy = {
         return this._model;
     },
     move: function(direction, amount) {
-
+		var moveDirection = {
+			top : function(amount){
+				this._$html.css('top', this._$html.css('top') - amount);
+			},
+			left : function(amount){
+				this._$html.css('left', this._$html.css('left') - amount);
+			},
+			right : function(amout){
+				this._$html.css('left', this._$html.css('left') + amount);
+			},
+			bottom : function(amout){
+				this._$html.css('top', this._$html.css('top') + amount);
+			}
+		}
+		
+		if(!moveDirection){
+			return;
+		}else{
+			moveDirection[direction].call(this, direction, amount);
+		}
+		
+		return this;
+    },
+    
+    dance: function(nivel){
+    	window.setInterval($.proxy(function(){
+    		var mov = nivel.shift();
+    		if(mov){
+    			this.move(mov,5);
+    		}
+  		}, this), 1000)
     },
     isDestroyed: function() {
         return this._destroyed;
