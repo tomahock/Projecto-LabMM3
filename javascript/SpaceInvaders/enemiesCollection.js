@@ -28,7 +28,7 @@ SpaceInvaders.enemiesCollection = {
     init: function() {
         this._groups = [];
         this._enemies = [];
-		this._left = (SpaceInvaders.config.STAGE_WIDTH/2)-(((SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS)/2);
+		this._left = (SpaceInvaders.config.STAGE_WIDTH/2)-(((SpaceInvaders.config.ENEMY_WIDTH+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN)*SpaceInvaders.config.ENEMY_COLUMNS)/2);
         return this;
     },
 

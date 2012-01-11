@@ -3,9 +3,9 @@ SpaceInvaders.player = {
  		this._model = model;
         this._width;
         this._left = (SpaceInvaders.config.STAGE_WIDTH / 2) - ( SpaceInvaders.config.PLAYER_WIDTH / 2);
-        this._top = ((SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * groupNumber) + 100;
-        this._isFiring;
-        this._isMoving;
+        this._top = ((SpaceInvaders.config.ENEMY_HEIGHT+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * groupNumber) + 100;
+        this._isFiring = false;
+        this._isMoving = false;
     },
     getModel: function() {
         return this._model;
@@ -49,7 +49,26 @@ SpaceInvaders.player = {
 
         return this._$html;
     },
-    move: function() {},
+    move: function(direction) {
+    	var amount = 1;
+    	var moveDirection = {
+			left : function(amount){
+				this._$html.css('left', this._$html.css('left') - amount);
+			},
+			right : function(amout){
+				this._$html.css('left', this._$html.css('left') + amount);
+			},
+		}
+		
+		if(!moveDirection){
+			return;
+		}else{
+			while(this._isMoving){
+				moveDirection[direction].call(this);
+			}
+		}
+		return this;
+    },
     fire: function() {},
     html: function() {},
     destroy: function() {},
