@@ -17,11 +17,13 @@ var SpaceInvaders = {
         ENEMY_TYPES : 3,
         ENEMY_TYPE_NAME : 'alien',
         PLAYER_TYPE_NAME : 'player',
+        PLAYER_WIDTH : 36,
+        PLAYER_HEIGHT : 41,
         ENEMY_WIDTH : 36,
         ENEMY_HEIGHT: 41,
         ENEMY_VERTICAL_MARGIN : 10,
         ENEMY_HORIZONTAL_MARGIN : 10,
-        STAGE_WIDTH: null,
+        STAGE_WIDTH: 930,
         STAGE_HEIGHT: null
     },
     /**
@@ -43,7 +45,6 @@ var SpaceInvaders = {
 
         this._active = [];
         this._active.push(this.enemiesCollection.init());
-        this._active.push(this.player.init());
         this._active.push(this.stage.init(this.config.STAGE_WIDTH, this.config.STAGE_HEIGHT));
 
         i = typesOfEnemies;
@@ -69,11 +70,11 @@ var SpaceInvaders = {
         }
 		//Player init
 		player = $.beget(SpaceInvaders.player);
-		player.init(SpaceInvaders.spaceshipsModels[this.config.PLAYER_TYPE_NAME]);
-		player.render();
-		
+		player.init(SpaceInvaders.spaceshipsModels.player, this.enemiesCollection.getGroupNumber());
+
         this.stage.render();
         this.stage.append(this.enemiesCollection.render());
+        this.stage.append(player.render());
         this.enemiesCollection.animationStart();
 		this.enemiesCollection.dance(SpaceInvaders.spaceshipsModels.nivel1);
 		

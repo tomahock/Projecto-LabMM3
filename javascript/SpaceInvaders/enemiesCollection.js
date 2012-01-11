@@ -43,7 +43,11 @@ SpaceInvaders.enemiesCollection = {
             return this._enemies[idx];
         }
     },
-
+	
+	getGroupNumber: function(){
+		return this._groups.length;
+	},
+	
     add: function(enemie) {
         this._enemies.push(enemie);
         return this;
