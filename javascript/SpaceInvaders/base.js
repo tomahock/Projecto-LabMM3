@@ -72,33 +72,7 @@ var SpaceInvaders = {
 		player = $.beget(SpaceInvaders.player);
 		player.init(SpaceInvaders.spaceshipsModels.player, this.enemiesCollection.getGroupNumber());
 		player.render();
-		$('body').on('keydown', function(event){
-			var keyID;
-			if(window.event){
-				keyID = evt.keyCode;
-			}else if(evt.which){
-				keyID = evt.which;
-			}
-			if(keyID===37){
-				var direction = 'left';
-			}else if(keyID === 39){
-				var direction = 'rigth';
-			}
-			this.player._isMoving = true;
-			this.player.move(direction);			
-		});
-		$('body').on('keyup', function(event){
-			var keyID;
-			if(window.event){
-				keyID = evt.keyCode;
-			}else if(evt.which){
-				keyID = evt.which;
-			}
-			if(keyID===37 || keyID===39){
-				this.player._isMoving = false;
-			}	
-		});
-		
+		player.addEvent();	
 		
         this.stage.render();
         this.stage.append(this.enemiesCollection.render());

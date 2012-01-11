@@ -10,6 +10,13 @@ SpaceInvaders.player = {
     getModel: function() {
         return this._model;
     },
+    
+    getMoving: function(){
+    	return this._isMoving;
+    },
+    setMoving: function(moving){
+    	this._isMoving = moving;
+    },
     render: function(){
     	 if (!this._$html) {
             var $spaceship = $('<div class="spaceship"></div>'),
@@ -49,26 +56,60 @@ SpaceInvaders.player = {
 
         return this._$html;
     },
-    move: function(direction) {
-    	var amount = 1;
+    move: function(direction, amount) {
+    	console.warn('inside move');
     	var moveDirection = {
 			left : function(amount){
-				this._$html.css('left', this._$html.css('left') - amount);
+				this._$html.css('left', parseInt(this._$html.css('left'),10) - amount);
 			},
 			right : function(amout){
-				this._$html.css('left', this._$html.css('left') + amount);
+				this._$html.css('left', parseInt(this._$html.css('left'),10) + amount);
 			},
 		}
 		
 		if(!moveDirection){
 			return;
 		}else{
-			while(this._isMoving){
-				moveDirection[direction].call(this);
-			}
+			moveDirection[direction].call(this, amount);
 		}
 		return this;
     },
+    addEvent: function(){
+    	$(window).on('keydown', function(evt){
+			var keyID;
+			if(window.event){
+				keyID = evt.keyCode;
+			}else if(evt.which){
+				keyID = evt.which;
+			}
+			if(keyID==37){
+				var direction = 'left';
+			}else if(keyID == 39){
+				var direction = 'right';
+			}else{
+				return;
+			}
+			player.setMoving(true);
+			console.warn('second check: ' + player.getMoving());
+			player.move(direction,5);			
+		});
+		$(window).on('keyup', function(evt){
+			var keyID;
+			if(window.event){
+				keyID = evt.keyCode;
+			}else if(evt.which){
+				keyID = evt.which;
+			}
+			if(keyID==37 || keyID==39){
+				player.setMoving(false);
+			}	
+		});
+		return this;
+   	
+   	},
+   	removeEvent : function(){
+   		
+   	},
     fire: function() {},
     html: function() {},
     destroy: function() {},
