@@ -51,7 +51,8 @@ SpaceInvaders.enemiesCollection = {
 			bulletLeft = bullet.getLeft(),
 			bulletTop = bullet.getTop();
 		if(!group && !enemie){
-			if(bulletLeft >= this.getLeft() && bulletLeft <= (this.getLeft+this._width) && bulletTop > this.getTop() && bulletTop < (this.getTop()+this._height)){
+			console.warn('bulletLeft: ' + bulletLeft + 'collectioLeft: ' + this.getLeft() + '');
+			if(bulletLeft >= this.getLeft() && bulletLeft <= (this.getLeft+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height)){
 				console.warn('isInside collection');
 				colide  = true;
 			}

@@ -26,19 +26,22 @@ SpaceInvaders.bullet = {
     },
 	move: function(){
 		this._isMoving = true;
-		this.checkColide();
+		var checkColide = function(){this.checkColide();};
+		this._interval = (window).setInterval($.proxy(checkColide,this),50);
 			this._$html.animate({
 				top : 0
 			}, {
 				duration: 1500,
-				sucess: function(){this._isMoving=false;}
+				sucess: function(){
+					this._isMoving=false;
+					(window).clearInterval($.proxy(this._interval,this))
+					;}
 			});
 	},
 	
 	checkColide: function(){
-		while(this._isMoving){
+		if(this._isMoving){
 			var control = SpaceInvaders.enemiesCollection.isInside(this);
-			console.warn(control);
 			if(control){
 				var i = SpaceInvaders.enemiesCollection.getLength();
 				for(i ; i >= 0; i--){
@@ -53,6 +56,8 @@ SpaceInvaders.bullet = {
 						}
 					}
 				}
+			}else{
+				(window).clearInterval($.proxy(this._interval,this));
 			}
 		}
 	},
