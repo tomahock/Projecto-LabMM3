@@ -1,6 +1,7 @@
 SpaceInvaders.bulletCollection = {
     init: function() {
         this._bullets = [];
+        this.addEvent();
         return this;
     },
     get: function(idx) {

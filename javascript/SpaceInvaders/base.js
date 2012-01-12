@@ -69,7 +69,6 @@ var SpaceInvaders = {
             j -= 1;
             
         }
-        bulletCollection = $.beget(SpaceInvaders.bulletCollection);
 		this.bulletCollection.init();
 		//Player init
 		this.player.init(SpaceInvaders.spaceshipsModels.player, this.enemiesCollection.getGroupNumber());
