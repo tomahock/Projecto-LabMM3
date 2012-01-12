@@ -25,7 +25,7 @@ SpaceInvaders.enemiesCollection = {
      * @public
      * @returns {SpaceInvaders.enemiesCollection} this
      */
-    init: function() {
+    init : function() {
         this._groups = [];
         this._enemies = [];
 		this._left = (SpaceInvaders.config.STAGE_WIDTH/2)-(((SpaceInvaders.config.ENEMY_WIDTH+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN)*SpaceInvaders.config.ENEMY_COLUMNS)/2);
@@ -35,36 +35,68 @@ SpaceInvaders.enemiesCollection = {
         return this;
     },
 
-    getGroup: function(idx) {
+    getGroup : function(idx) {
         return this._groups[idx];
     },
 
-    get: function(idx, group) {
+    get : function(idx, group) {
         if (group) {
             return this._group[group].get(idx);
         } else {
             return this._enemies[idx];
         }
     },
-	isInside: function(bullet, group, enemie){
-		var colide = false,
-			bulletLeft = bullet.getLeft(),
+    
+    remove : function(idx){
+    	this._enemies.splice(idx,1).dispose();
+    	return this;
+    },
+    
+    removeGroup : function(idx){
+    	this._group.splice(idx, 1).dispose();
+    	return this;
+    },
+    
+    removeAll : function(){
+    	var i=0;
+    	
+    	if(this.getLength()){
+    		i = this._groups.length - 1;
+    		for(i; i >= 0; i -= 1){this.getGroup(i).dispose();}
+    		this._group = [];
+    	}else{
+    		i = this._enemies.length - 1;
+    		for(i; i>=0; i-=1){ this.get(i).dispose();}
+    		this._enemies = [];
+    	}
+    	
+    	return this;
+    },
+    
+	isInside: function(bullet, groupID, enemie){
+		var bulletLeft = bullet.getLeft(),
 			bulletTop = bullet.getTop();
-		if(!group && !enemie){
-			console.warn('bulletLeft: ' + bulletLeft + 'collectioLeft: ' + this.getLeft() + '');
-			if(bulletLeft >= this.getLeft() && bulletLeft <= (this.getLeft+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height)){
-				console.warn('isInside collection');
-				colide  = true;
+			
+		if(!groupID && !enemie){
+			console.warn('INSIDE 1º if');
+			console.warn('bulletTop => '+ bulletTop + ' this.getTop() => ' + this.getTop() + ' this.getTop() + this._height => ' + (this.getTop()+this._height));
+			if(bulletTop <= this.getTop() && bulletTop >= (this.getTop()+this._height)){
+				console.warn('returning true;');
+				return true;
 			}
-			return colide;
-		}else if(group && !enemie){
-			return colide;
-		}else if(group && enemie){
-			return colide;
+		}else if(groupID && !enemie){
+			var group = this.getGroup(groupID);
+			console.warn(group);
+			console.warn('INSIDE 2º if');
+			return true;
+		}else if(groupID && enemie){
+			return true;
+		}else{
+			return false;
 		}
 	},
 	getLength: function(){
-		return this._groups.length;
+		return this._groups.length-1;
 	},
 	getLeft : function(){
 		return this._left;

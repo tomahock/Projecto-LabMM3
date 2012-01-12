@@ -1,12 +1,15 @@
 SpaceInvaders.player = {
     init: function(model, groupNumber) {
  		this._model = model;
-        this._width;
+        this._width = 0;
         this._left = (SpaceInvaders.config.STAGE_WIDTH / 2) - ( SpaceInvaders.config.PLAYER_WIDTH / 2);
         this._top = ((SpaceInvaders.config.ENEMY_HEIGHT+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * groupNumber) + 100;
         this._isFiring = false;
         this._isMoving = false;
         this._bullets = [];
+
+		this._keyUpEvent = $.proxy(this._keyUpHandler, this);
+		this._keyDownEvent = $.proxy(this._keyDownHandler, this);
     },
     getModel: function() {
         return this._model;
@@ -39,6 +42,7 @@ SpaceInvaders.player = {
                         color = "",
                         pLen = 0,
                         $p, p;
+                        
                     for (i = 0; i < len; i += 1) {
                         $p = $('<p></p>');
                         p = model[i];
@@ -86,52 +90,65 @@ SpaceInvaders.player = {
 			}
 		}
 		
-		if(!moveDirection){
-			return;
-		}else if(this.getMoving()){
+		if(this.getMoving() && moveDirection[direction]){
 			moveDirection[direction].call(this, amount);
 		}
+		
 		return this;
     },
     addEvent: function(){
-    	$(window).on('keydown', $.proxy(function(evt){
-			var keyID;
-			if(window.event){
-				keyID = evt.keyCode;
-			}else if(evt.which){
-				keyID = evt.which;
-			}
-			if(keyID==37){
-				var direction = 'left';
-			}else if(keyID == 39){
-				var direction = 'right';
-			}else if(keyID == 32){
-				$(window).trigger('onFire');
-				return;
-			}else{
-				return;
-			}
-			this.setMoving(true);
-			this.move(direction,1);			
-		},this));
-		$(window).on('keyup', $.proxy(function(evt){
-			var keyID;
-			if(window.event){
-				keyID = evt.keyCode;
-			}else if(evt.which){
-				keyID = evt.which;
-			}
-			if(keyID==37 || keyID==39){
-				this.setMoving(false);
-			}	
-		},this));
-		return this;
-   	},
-   	removeEvent : function(){
-   		
-   	},
+    	$(window).on('keydown', this._keyDownEvent);
+    	$(window).on('keyup', this._keyUpEvent);
+    	
+    	return this;
+    },
+    removeEvent : function(){
+    	$(window).off('keydown', this._keyDownEvent);
+    	$(window).off('keyup', this._keyUpEvent);
+    
+    },
+    
+    _keyUpHandler : function(evt){
+    	var keyID = evt.which;
+    	if(keyID == 37 || keyID == 39){
+    		this.setMoving(false);
+    	}
+    },
+    
+    _keyDownHandler : function(evt){
+    	var keyID = evt.which,
+    				direction = "";
+    				
+    	if(keyID == 37){
+    		direction = 'left';
+    	}else if(keyID == 39){
+    		direction = 'right';
+    	}else if(keyID == 32){
+    		$(window).trigger('onFire');
+    		return;
+    	}else{
+    		return;
+    	}
+    	this.setMoving(true);
+    	this.move(direction, 10);
+    },
+
     fire: function() {},
     html: function() {},
     destroy: function() {},
-    dispose: function() {}
+    dispose: function() {
+    	this.removeEvent();
+    	this._$html.stop().remove();
+    	
+    	this._keyUpEvent = null;
+    	this._keyDownEvent = null;
+    	this._model = null;
+    	this._width = null;
+    	this._left = null;
+    	this._top = null;
+    	this._isFiring = null;
+    	this._isMoving = null;
+    	this._bullets = null;
+    
+    }
 };

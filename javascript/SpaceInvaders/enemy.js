@@ -5,12 +5,15 @@ SpaceInvaders.enemy = {
         this._destroyed = false;
 
     },
+    
     getType: function() {
         return this._type;
     },
+    
     getModel: function() {
         return this._model;
     },
+    
     move: function(direction, amount) {
 		var moveDirection = {
 			top : function(amount){
@@ -27,9 +30,7 @@ SpaceInvaders.enemy = {
 			}
 		}
 		
-		if(!moveDirection){
-			return;
-		}else{
+		if(moveDirection[direction]){
 			moveDirection[direction].call(this, direction, amount);
 		}
 		
@@ -37,24 +38,36 @@ SpaceInvaders.enemy = {
     },
     
     dance: function(nivel){
-    	window.setInterval($.proxy(function(){
+    	this._danceInterval = window.setInterval($.proxy(function(){
     		var mov = nivel.shift();
-    		if(mov){
-    			this.move(mov,5);
-    		}
+    		if(mov){ this.move(mov,5);}
+    		else{ this.stopDance(); }
   		}, this), 1000)
     },
+    
+    stopDance : function(){
+    	if(this._danceInterval){
+    		window.clearInterval(this._danceInterval);
+    	}
+    	
+    	return this;
+    },
+    
     isDestroyed: function() {
         return this._destroyed;
     },
+    
     destroy: function() {
         this._$html.remove();
         this._destroyed = true;
     },
+    
     fire: function() {},
+    
     html: function() {
         return this._$html;
     },
+    
     render: function() {
         if (!this._$html) {
             var $modelA = $('<div class="modelA ' + this.getType() + '"></div>'),
@@ -97,5 +110,11 @@ SpaceInvaders.enemy = {
         return this._$html;
     },
     // o metodo dispose é para apagarmos inimigos da memoria
-    dispose: function() {}
+    dispose: function() {
+    	this.stopDance();
+    	this._$html.remove();
+    	this._$html = null;
+    	this._model = null;
+    	this._destroyed = null;
+    }
 };

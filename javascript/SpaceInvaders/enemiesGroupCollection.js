@@ -2,9 +2,11 @@ SpaceInvaders.enemiesGroupCollection = {
     init: function() {
         return this;
     },
+    
     get: function(idx) {
         return this._enemies[idx];
     },
+    
     add: function(enemy) {
         if (!this._enemies) {
             this._enemies = [];
@@ -12,10 +14,12 @@ SpaceInvaders.enemiesGroupCollection = {
         this._enemies.push(enemy);
         return this;
     },
+    
     render: function() {
         if (!this._$html) {
             var i = this._enemies.length - 1,
                 enemy;
+                
             this._$html = $('<div class="group"></div>').css({
                 position: 'absolute',
                 width: (SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * (i + 1),
@@ -31,6 +35,7 @@ SpaceInvaders.enemiesGroupCollection = {
 
         return this._$html;
     },
+    
     move: function(direction, amount) {
     	var moveDirection = {
 			top : function(amount){
@@ -47,24 +52,54 @@ SpaceInvaders.enemiesGroupCollection = {
 			}
 		}
 		
-		if(!moveDirection){
-			return;
-		}else{
+		if(moveDirection[direction]){
 			moveDirection[direction].call(this, direction, amount);
 		}
 		
 		return this;
     },
-     dance: function(nivel){
-    	window.setInterval($.proxy(function(){
+    
+    dance: function(nivel){
+    	this._danceInterval = window.setInterval($.proxy(function(){
     		var mov = nivel.shift();
     		if(mov){
     			this.move(mov,5);
     		}
-  		}, this), 1000)
+    		else{
+    			this.stopDance();
+    		}
+  		}, this), 1000);
     },
-    remove: function() {},
-    dispose: function() {},
+    
+    stopDance : function(){
+    	if(this._danceInterval){
+    		window.clearInterval(this._danceInterval);
+    	}
+    	
+    	return this;
+    },
+    
+    remove: function(idx) {
+    	this._enemies.splice(idx,1).dispose();
+    },
+    
+    removeAll : function(){
+    	var i = this._enemies.length - 1;
+    	for(i; i>=0;i-=1){
+    		this.get(i).dispose();
+    	}
+    	this.enemies = [];
+    	return this;
+    },
+    
+    dispose: function() {
+    	this.stopDance().removeAll();
+    	
+    	this._$html.remove();
+    	this.enemies = null;
+    	this._$html = null;
+    },
+    
     size: function() {
         return this._enemies.length;
     }

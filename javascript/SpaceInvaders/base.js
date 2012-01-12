@@ -119,8 +119,11 @@ var SpaceInvaders = {
      * @returns {SpaceInvaders} this
      */
     shutdown: function() {
-        while (this._active) {
-            this._active.pop().dispose();
-        }
+        try{
+            this.enemiesCollection.dispose();
+            this.bulletCollection.dispose();
+            this.player.dispose();
+            this.stage.dispose();
+        } catch (e) { alert(e); }
     }
 };
