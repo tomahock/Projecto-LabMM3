@@ -29,9 +29,9 @@ SpaceInvaders.enemiesCollection = {
         this._groups = [];
         this._enemies = [];
 		this._left = (SpaceInvaders.config.STAGE_WIDTH/2)-(((SpaceInvaders.config.ENEMY_WIDTH+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN)*SpaceInvaders.config.ENEMY_COLUMNS)/2);
-		this._top;
+		this._top = 20;
 		this._width = (SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS;
-		this._height = (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS
+		this._height = (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS;
         return this;
     },
 
@@ -47,8 +47,14 @@ SpaceInvaders.enemiesCollection = {
         }
     },
 	isInside: function(bullet, group, enemie){
-		var colide = false;
+		var colide = false,
+			bulletLeft = bullet.getLeft(),
+			bulletTop = bullet.getTop();
 		if(!group && !enemie){
+			if(bulletLeft >= this.getLeft() && bulletLeft <= (this.getLeft+this._width) && bulletTop > this.getTop() && bulletTop < (this.getTop()+this._height)){
+				console.warn('isInside collection');
+				colide  = true;
+			}
 			return colide;
 		}else if(group && !enemie){
 			return colide;
@@ -95,6 +101,7 @@ SpaceInvaders.enemiesCollection = {
             this._$html = $('<div class="collection"></div>');
             this._$html.css({
                 position: 'absolute',
+                top: this._top,
                 left: this._left,
                 width: this._width,
                 height: this._height
@@ -113,7 +120,6 @@ SpaceInvaders.enemiesCollection = {
             }
             this._$html.addClass('a');
         }
-
         return this._$html;
     },
 
@@ -130,7 +136,6 @@ SpaceInvaders.enemiesCollection = {
             window.clearInterval(this._interval);
         }
         this._interval = window.setInterval($.proxy(toggleClass, this), 1000);
-
         return this;
     },
 
@@ -144,7 +149,6 @@ SpaceInvaders.enemiesCollection = {
     },
 
     move: function(direction, amount) {
-    	
     	var moveDirection = {
 			top : function(amount){
 				this._$html.css('top', parseInt(this._$html.css('top'),10) - amount);
@@ -163,7 +167,6 @@ SpaceInvaders.enemiesCollection = {
 				this._top += amount;
 			}
 		}
-		
 		if(!moveDirection){
 			return;
 		}else{

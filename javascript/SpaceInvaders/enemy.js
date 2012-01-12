@@ -57,7 +57,6 @@ SpaceInvaders.enemy = {
     },
     render: function() {
         if (!this._$html) {
-            console.log(this);
             var $modelA = $('<div class="modelA ' + this.getType() + '"></div>'),
                 $modelB = $('<div class="modelB ' + this.getType() + '"></div>'),
                 modelA = this.getModel().a,

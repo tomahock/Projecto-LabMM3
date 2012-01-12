@@ -7,7 +7,6 @@ SpaceInvaders.player = {
         this._isFiring = false;
         this._isMoving = false;
         this._bullets = [];
-        console.warn(this._top);
     },
     getModel: function() {
         return this._model;
@@ -63,7 +62,6 @@ SpaceInvaders.player = {
                 width: SpaceInvaders.config.PLAYER_WIDTH,
                 height: SpaceInvaders.config.PLAYER_HEIGHT
             });
-            console.warn(this);
             this._$html.append(createModel(this._model, $spaceship));
         }
 
