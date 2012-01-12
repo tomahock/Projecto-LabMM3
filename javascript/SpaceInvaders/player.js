@@ -6,6 +6,8 @@ SpaceInvaders.player = {
         this._top = ((SpaceInvaders.config.ENEMY_HEIGHT+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * groupNumber) + 100;
         this._isFiring = false;
         this._isMoving = false;
+        this._shoots = [];
+        console.warn(this._top);
     },
     getModel: function() {
         return this._model;
@@ -14,6 +16,18 @@ SpaceInvaders.player = {
     getMoving: function(){
     	return this._isMoving;
     },
+    
+    getLeft: function(){
+    	console.warn('inside getLeft() and _left : ' + this._left);
+    	return this._left;
+    },
+    getShootsLength: function(){
+    	return this._shoots.length;
+    },
+    getTop: function(){
+    	return this._top;
+    },
+    
     setMoving: function(moving){
     	this._isMoving = moving;
     },
@@ -57,19 +71,27 @@ SpaceInvaders.player = {
         return this._$html;
     },
     move: function(direction, amount) {
-    	console.warn('inside move');
+    	/*
+    	 * 
+    	 * TODO : verificação se sai do stage
+    	 * 
+    	 */
     	var moveDirection = {
 			left : function(amount){
 				this._$html.css('left', parseInt(this._$html.css('left'),10) - amount);
+				this._left -= amount;
+				//this._$html.animate({"left": "-=" +  amount}, "fast");
 			},
 			right : function(amout){
 				this._$html.css('left', parseInt(this._$html.css('left'),10) + amount);
-			},
+				this._left += amount;
+				//this._$html.animate({"left": "+=" +  amount}, "fast");
+			}
 		}
 		
 		if(!moveDirection){
 			return;
-		}else{
+		}else if(this.getMoving()){
 			moveDirection[direction].call(this, amount);
 		}
 		return this;
@@ -86,12 +108,14 @@ SpaceInvaders.player = {
 				var direction = 'left';
 			}else if(keyID == 39){
 				var direction = 'right';
+			}else if(keyID == 32){
+				$(window).trigger('onFire');
+				return;
 			}else{
 				return;
 			}
 			player.setMoving(true);
-			console.warn('second check: ' + player.getMoving());
-			player.move(direction,5);			
+			player.move(direction,1);			
 		});
 		$(window).on('keyup', function(evt){
 			var keyID;
@@ -105,12 +129,15 @@ SpaceInvaders.player = {
 			}	
 		});
 		return this;
-   	
    	},
    	removeEvent : function(){
    		
    	},
-    fire: function() {},
+    fire: function() {
+       	this._shoots.push(SpaceInvaders.shoot.init());
+        var i = this.getShootsLength()-1;
+       // this._$html.append(this._shoots[i].render());
+    },
     html: function() {},
     destroy: function() {},
     dispose: function() {}

@@ -41,7 +41,8 @@ var SpaceInvaders = {
             totalEnemies = enemiesColumns * enemiesRows,
             equalTypes = totalEnemies / typesOfEnemies,
             rowsOfType = enemiesRows / typesOfEnemies,
-            enemy, group, i, j, k;
+            enemy, group, player, shootColl, shoot,
+            i, j, k;
 
         this._active = [];
         this._active.push(this.enemiesCollection.init());
@@ -68,11 +69,19 @@ var SpaceInvaders = {
             j -= 1;
             
         }
+        
+		shoot = $.beget(SpaceInvaders.shoot);
+		
 		//Player init
 		player = $.beget(SpaceInvaders.player);
 		player.init(SpaceInvaders.spaceshipsModels.player, this.enemiesCollection.getGroupNumber());
-		player.render();
 		player.addEvent();	
+		$(window).on("onFire", function(){
+    		console.warn('fire in onFire');
+    		console.warn(this);
+    		player.fire();
+    	});
+		
 		
         this.stage.render();
         this.stage.append(this.enemiesCollection.render());

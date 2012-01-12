@@ -138,5 +138,10 @@
         ["p", "p", "p", "y", "p", "p", "p", "p"],
         ["p", "p", "p", "y", "y", "y", "p", "p"]
     ],
-    "nivel1": ["left", "left", "left", "left", "left", "left", "left", "left","bottom", "bottom", "bottom", "right", "right", "right" ]
+    "nivel1": ["left", "left", "left", "left", "left", "left", "left", "left","bottom", "bottom", "bottom", "right", "right", "right" ],
+    
+    "nivel6": [
+    	["left", "left", "left", "left", "left", "left", "bottom", "rigth", "rigth"],
+    	["rigth", "rigth"]
+    ]
 }
