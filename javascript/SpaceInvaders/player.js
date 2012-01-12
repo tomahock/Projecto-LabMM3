@@ -137,7 +137,7 @@ SpaceInvaders.player = {
        	this._shoots.push(SpaceInvaders.shoot.init(this.getLeft()));
         var i = this.getShootsLength()-1;
        	SpaceInvaders.stage.append(this._shoots[i].render());
-       	SpaceInvaders.stage.append(this._shoots[i].move());
+       	this._shoots[i].move();
     },
     html: function() {},
     destroy: function() {},
