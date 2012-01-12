@@ -1,11 +1,10 @@
 SpaceInvaders.bulletCollection = {
-	
     init: function() {
         this._bullets = [];
         return this;
     },
     get: function(idx) {
-		return this._bulletss[idx];
+		return this._bullets[idx];
     },
     add: function() {
     	bullet = $.beget(SpaceInvaders.bullet);
@@ -17,9 +16,9 @@ SpaceInvaders.bulletCollection = {
     },
     remove: function() {},
     addEvent : function(){
-    	$(window).on("onFire", function(){
-    		$.proxy(this.add(), this);
-    	});
+    	$(window).on("onFire", $.proxy(function(){
+    		this.add();
+    	}, this));
     }
 };
 

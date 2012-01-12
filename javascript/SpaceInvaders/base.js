@@ -41,8 +41,8 @@ var SpaceInvaders = {
             totalEnemies = enemiesColumns * enemiesRows,
             equalTypes = totalEnemies / typesOfEnemies,
             rowsOfType = enemiesRows / typesOfEnemies,
-            enemy, group, player, shootColl, shoot,
-            bulletCollection, i, j, k;
+            enemy, group, player, shootColl, bulletCollection,
+            i, j, k;
 
         this._active = [];
         this._active.push(this.enemiesCollection.init());
@@ -69,6 +69,7 @@ var SpaceInvaders = {
             j -= 1;
             
         }
+        bulletCollection = $.beget(SpaceInvaders.bulletCollection);
 		this.bulletCollection.init();
 		//Player init
 		this.player.init(SpaceInvaders.spaceshipsModels.player, this.enemiesCollection.getGroupNumber());
