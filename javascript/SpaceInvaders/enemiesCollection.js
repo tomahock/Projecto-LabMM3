@@ -29,6 +29,9 @@ SpaceInvaders.enemiesCollection = {
         this._groups = [];
         this._enemies = [];
 		this._left = (SpaceInvaders.config.STAGE_WIDTH/2)-(((SpaceInvaders.config.ENEMY_WIDTH+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN)*SpaceInvaders.config.ENEMY_COLUMNS)/2);
+		this._top;
+		this._width = (SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS;
+		this._height = (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS
         return this;
     },
 
@@ -47,12 +50,22 @@ SpaceInvaders.enemiesCollection = {
 	getGroupNumber: function(){
 		return this._groups.length;
 	},
-	
+	getLeft : function(){
+		return this._left;
+	},
+	getTop : function(){
+		return this._top;
+	},
+	getWidth : function(){
+		return this._width;
+	},
+	getHeight : function(){
+		return this._heigth;
+	},
     add: function(enemie) {
         this._enemies.push(enemie);
         return this;
     },
-
     addGroup: function(group, addEnemies) {
         this._groups.push(group);
 
@@ -74,8 +87,8 @@ SpaceInvaders.enemiesCollection = {
             this._$html.css({
                 position: 'absolute',
                 left: this._left,
-                width: (SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS,
-                height: (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS
+                width: this._width,
+                height: this._height
             });
             if (this._groups.length) {
                 i = this._groups.length - 1;
@@ -126,15 +139,19 @@ SpaceInvaders.enemiesCollection = {
     	var moveDirection = {
 			top : function(amount){
 				this._$html.css('top', parseInt(this._$html.css('top'),10) - amount);
+				this._top -= amount;
 			},
 			left : function(amount){
 				this._$html.css('left', parseInt(this._$html.css('left'),10) - amount);
+				this._left -= amount;
 			},
 			right : function(amount){
 				this._$html.css('left', parseInt(this._$html.css('left'),10) + amount);
+				this._left += amount;
 			},
 			bottom : function(amount){
 				this._$html.css('top', parseInt(this._$html.css('top'),10) + amount);
+				this._top += amount;
 			}
 		}
 		
