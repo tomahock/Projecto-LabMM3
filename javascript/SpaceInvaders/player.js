@@ -18,7 +18,6 @@ SpaceInvaders.player = {
     },
     
     getLeft: function(){
-    	console.warn('inside getLeft() and _left : ' + this._left);
     	return this._left;
     },
     getBulletsLength: function(){
@@ -133,12 +132,7 @@ SpaceInvaders.player = {
    	removeEvent : function(){
    		
    	},
-    fire: function() {
-       	this._bullets.push(SpaceInvaders.bullet.init(this.getLeft()));
-        var i = this.getBulletsLength()-1;
-       	SpaceInvaders.stage.append(this._bullets[i].render());
-       	this._bullets[i].move();
-    },
+    fire: function() {},
     html: function() {},
     destroy: function() {},
     dispose: function() {}
