@@ -1,7 +1,7 @@
 SpaceInvaders.bullet = {
     init: function() {
     	this._left = SpaceInvaders.player.getLeft();
-    	this._top = ((SpaceInvaders.config.ENEMY_HEIGHT+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.enemiesCollection.getGroupNumber()) + 100;
+    	this._top = ((SpaceInvaders.config.ENEMY_HEIGHT+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.enemiesCollection.getLength()) + 100;
     	this._isMoving = false;
     	this._bulletSpeed = 1;
     	this._colided = false;
@@ -29,12 +29,18 @@ SpaceInvaders.bullet = {
 			}, '1500');
 	},
 	checkColide: function(){
-		if(SpaceInvaders.enemiesColletion.isInside(this)){
-			var i = SpaceInvaders.enemiesCollection.getGroupNumber();
+		if(SpaceInvaders.enemiesCollection.isInside(this)){
+			var i = SpaceInvaders.enemiesCollection.getLength();
 			for(i ; i >= 0; i--){
 				var group = SpaceInvaders.enemiesCollection.getGroup(i);
-				if(group.isInside()){
-					
+				if(group.isInside(this, i)){
+					var j = group._enemies.length;
+					for(j; j>= 0; j--){
+						if(group._enemies[j].isInside(this, i, j)){
+							this.colide();
+							return;
+						}
+					}
 				}
 			}
 		}

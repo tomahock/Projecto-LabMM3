@@ -71,9 +71,9 @@ var SpaceInvaders = {
         }
 		this.bulletCollection.init();
 		//Player init
-		this.player.init(SpaceInvaders.spaceshipsModels.player, this.enemiesCollection.getGroupNumber());
+		this.player.init(SpaceInvaders.spaceshipsModels.player, this.enemiesCollection.getLength());
 		this.player.addEvent();			
-		
+		console.warn(SpaceInvaders.enemiesCollection._groups);
         this.stage.render();
         this.stage.append(this.enemiesCollection.render());
         this.stage.append(this.player.render());

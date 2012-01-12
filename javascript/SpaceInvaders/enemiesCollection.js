@@ -46,8 +46,17 @@ SpaceInvaders.enemiesCollection = {
             return this._enemies[idx];
         }
     },
-	
-	getGroupNumber: function(){
+	isInside: function(bullet, group, enemie){
+		var colide = false;
+		if(!group && !enemie){
+			return colide;
+		}else if(group && !enemie){
+			return colide;
+		}else if(group && enemie){
+			return colide;
+		}
+	},
+	getLength: function(){
 		return this._groups.length;
 	},
 	getLeft : function(){
