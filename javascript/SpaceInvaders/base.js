@@ -69,13 +69,10 @@ var SpaceInvaders = {
             j -= 1;
             
         }
-        
-		shoot = $.beget(SpaceInvaders.shoot);
 		
 		//Player init
-		player = $.beget(SpaceInvaders.player);
-		player.init(SpaceInvaders.spaceshipsModels.player, this.enemiesCollection.getGroupNumber());
-		player.addEvent();	
+		this.player.init(SpaceInvaders.spaceshipsModels.player, this.enemiesCollection.getGroupNumber());
+		this.player.addEvent();	
 		$(window).on("onFire", function(){
     		console.warn('fire in onFire');
     		console.warn(this);
@@ -85,7 +82,7 @@ var SpaceInvaders = {
 		
         this.stage.render();
         this.stage.append(this.enemiesCollection.render());
-        this.stage.append(player.render());
+        this.stage.append(this.player.render());
         this.enemiesCollection.animationStart();
 		this.enemiesCollection.dance(SpaceInvaders.spaceshipsModels.nivel1);
 		

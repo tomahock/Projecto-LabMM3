@@ -6,7 +6,7 @@ SpaceInvaders.player = {
         this._top = ((SpaceInvaders.config.ENEMY_HEIGHT+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * groupNumber) + 100;
         this._isFiring = false;
         this._isMoving = false;
-        this._shoots = [];
+        this._bullets = [];
         console.warn(this._top);
     },
     getModel: function() {
@@ -21,8 +21,8 @@ SpaceInvaders.player = {
     	console.warn('inside getLeft() and _left : ' + this._left);
     	return this._left;
     },
-    getShootsLength: function(){
-    	return this._shoots.length;
+    getBulletsLength: function(){
+    	return this._bullets.length;
     },
     getTop: function(){
     	return this._top;
@@ -97,7 +97,7 @@ SpaceInvaders.player = {
 		return this;
     },
     addEvent: function(){
-    	$(window).on('keydown', function(evt){
+    	$(window).on('keydown', $.proxy(function(evt){
 			var keyID;
 			if(window.event){
 				keyID = evt.keyCode;
@@ -114,10 +114,10 @@ SpaceInvaders.player = {
 			}else{
 				return;
 			}
-			player.setMoving(true);
-			player.move(direction,1);			
-		});
-		$(window).on('keyup', function(evt){
+			this.setMoving(true);
+			this.move(direction,1);			
+		},this));
+		$(window).on('keyup', $.proxy(function(evt){
 			var keyID;
 			if(window.event){
 				keyID = evt.keyCode;
@@ -125,19 +125,19 @@ SpaceInvaders.player = {
 				keyID = evt.which;
 			}
 			if(keyID==37 || keyID==39){
-				player.setMoving(false);
+				this.setMoving(false);
 			}	
-		});
+		},this));
 		return this;
    	},
    	removeEvent : function(){
    		
    	},
     fire: function() {
-       	this._shoots.push(SpaceInvaders.shoot.init(this.getLeft()));
-        var i = this.getShootsLength()-1;
-       	SpaceInvaders.stage.append(this._shoots[i].render());
-       	this._shoots[i].move();
+       	this._bullets.push(SpaceInvaders.bullet.init(this.getLeft()));
+        var i = this.getBulletsLength()-1;
+       	SpaceInvaders.stage.append(this._bullets[i].render());
+       	this._bullets[i].move();
     },
     html: function() {},
     destroy: function() {},
