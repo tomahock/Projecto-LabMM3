@@ -56,19 +56,28 @@ SpaceInvaders.bullet = {
 	},
 	
 	checkColide: function(){
+		/***************************
+		 * 
+		 *
+		 * TODO: check if bullet is on the rigth or in left side of stage and start to check colide from enemie on right or left! 
+		 *
+		 * */
 		if(this._isMoving){
 			var control = SpaceInvaders.enemiesCollection.isInside(this);
 			if(control){
 				var i = SpaceInvaders.enemiesCollection.getLength();
 				for(i ; i >= 0; i--){ //i == groupID
 					var groupID = i,
-					group = SpaceInvaders.enemiesCollection.getGroup(groupID);
-					for(var j=0; j<=group._enemies.length-1; j++){//j == enemyID
-						var enemyID = j;
-						if(SpaceInvaders.enemiesCollection.isInside(this, groupID, enemyID)){
-							var enemy = SpaceInvaders.enemiesCollection.get(enemyID, groupID);
-							this.colide(enemy);
-							return;
+						group = SpaceInvaders.enemiesCollection.getGroup(groupID);
+					if(SpaceInvaders.enemiesCollection.isInside(this, groupID)){
+						for(var j=0; j<=group._enemies.length-1; j++){//j == enemyID
+							var enemyID = j;
+							if(SpaceInvaders.enemiesCollection.isInside(this,groupID,enemyID)){
+								console.warn(i,j);
+								var enemy = SpaceInvaders.enemiesCollection.get(enemyID,enemyID);
+								this.colide(enemy);
+								return;
+							}
 						}
 					}
 				}
@@ -84,15 +93,14 @@ SpaceInvaders.bullet = {
 		window.clearInterval(this._interval,this);
 		enemy.destroy();
         this._colided = true;
+        this._$html.stop(true, false);
         this.remove();
         console.warn('FUCKING COLIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     },
-    
     remove : function(){
-    	this._$html.remove();
+       	//window.trigger('collision');
     	this.dispose();
-    },
-    
+   	},
     dispose: function() {
     	if (this._interval) { window.clearInterval(this._interval); }
         this.removeEvent();
