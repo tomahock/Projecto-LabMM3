@@ -59,13 +59,17 @@ SpaceInvaders.bullet = {
 			var control = SpaceInvaders.enemiesCollection.isInside(this);
 			if(control){
 				var i = SpaceInvaders.enemiesCollection.getLength();
-				for(i ; i >= 0; i--){
-					var group = SpaceInvaders.enemiesCollection.getGroup(i);
-					if(SpaceInvaders.enemiesCollection.isInside(this,i)){
+				for(i ; i >= 0; i--){ //i = groupID
+					var groupID = i,
+						group = SpaceInvaders.enemiesCollection.getGroup(groupID);
+					if(SpaceInvaders.enemiesCollection.isInside(this,groupID)){
 						var j = group._enemies.length-1;
-						for(j; j>= 0; j--){
-							if(SpaceInvaders.enemiesCollection.isInside(this, i, j)){
-								this.colide();
+						for(j; j>= 0; j--){//j = enemyID
+							var enemyID = j;
+							if(SpaceInvaders.enemiesCollection.isInside(this, groupID, enemyID)){
+								console.log(enemyID, groupID);
+								var enemy = SpaceInvaders.enemiesCollection.get(enemyID, groupID);
+								this.colide(enemy);
 								return;
 							}
 						}
@@ -79,11 +83,14 @@ SpaceInvaders.bullet = {
 	
 	removeEvent: function(){},
 	
-	colide: function() {
+	colide: function(enemy) {
 		window.clearInterval(this._interval,this);
-		console.warn(this);
+		console.warn(SpaceInvaders.enemiesCollection._groups);
+		console.warn(enemy);
+		enemy.destroy();
         this._$html.remove();
         this._colided = true;
+        
         console.warn('FUCKING COLIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     },
     

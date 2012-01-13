@@ -58,6 +58,7 @@ SpaceInvaders.enemy = {
     },
     
     destroy: function() {
+    	console.warn(this);
         this._$html.remove();
         this._destroyed = true;
     },

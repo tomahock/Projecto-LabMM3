@@ -41,7 +41,7 @@ SpaceInvaders.enemiesCollection = {
 
     get : function(idx, group) {
         if (group) {
-            return this._group[group].get(idx);
+            return this._groups[group].get(idx);
         } else {
             return this._enemies[idx];
         }
@@ -73,20 +73,17 @@ SpaceInvaders.enemiesCollection = {
     	return this;
     },
     
-	isInside: function(bullet, groupID, enemie){
+	isInside: function(bullet, groupID, enemyID){
 		var bulletLeft = bullet.getLeft(),
 			bulletTop = bullet.getTop();
-		if(!groupID && !enemie){
+		if(!groupID && !enemyID){
 			return(bulletLeft >= this.getLeft() && bulletLeft <= (this.getLeft()+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height));
-		}else if(groupID && !enemie){
+		}else if(groupID && !enemyID){
 			var group = this.getGroup(groupID);
-			console.warn(group);
-			if(bulletLeft >= group._$html.css('left') && bulletLeft <= (group._$html.css('left')+this._width) && bulletTop >= group._$html.css('top') && bulletTop <= (group._$html.css('top')+(paceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN))){
-				console.warn('INSIDE 2º if');
-			}
-			return true;
-		}else if(groupID && enemie){
-			return true;
+			return (bulletLeft >= group._$html.css('left') && bulletLeft <= (group._$html.css('left')+this._width) && bulletTop >= group._$html.css('top') && bulletTop <= (group._$html.css('top')+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN)));
+		}else if(groupID && enemyID){
+			enemy = this.get(enemyID, groupID);
+			return (bulletLeft >= enemy._$html.css('left') && bulletLeft <= (enemy._$html.css('left')+SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= enemy._$html.css('top') && bulletTop <= (enemy._$html.css('top')+SpaceInvaders.config.ENEMY_HEIGHT));
 		}else{
 			return false;
 		}
@@ -106,8 +103,8 @@ SpaceInvaders.enemiesCollection = {
 	getHeight : function(){
 		return this._heigth;
 	},
-    add: function(enemie) {
-        this._enemies.push(enemie);
+    add: function(enemy) {
+        this._enemies.push(enemy);
         return this;
     },
     addGroup: function(group, addEnemies) {
