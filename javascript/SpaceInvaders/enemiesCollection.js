@@ -74,16 +74,20 @@ SpaceInvaders.enemiesCollection = {
     },
     
 	isInside: function(bullet, groupID, enemyID){
+		console.warn('groupID=>'+groupID+'||enemyID=>'+enemyID);
 		var bulletLeft = bullet.getLeft(),
 			bulletTop = bullet.getTop();
 		if(!groupID && !enemyID){
+			console.warn('isInside(bullet)');
 			return(bulletLeft >= 0 && bulletLeft <= (this.getLeft()+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height));
 		}else if(groupID && !enemyID){
+			console.warn('isInside(bullet, groupID)');
 			var group = this.getGroup(groupID),
 				firstEnemy = this.get(0,groupID),
 				_temp = parseInt(group._$html.css('top'),10)+parseInt(this._top,10);
 			return (bulletLeft >= this._left && bulletLeft <= (this._left+this._width) && bulletTop >= _temp && bulletTop <= _temp+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN));
 		}else if(groupID && enemyID){
+			console.warn('in isInside(this, groupID, enemyID)');
 			var enemy = this.get(enemyID, groupID),
 				group = this.getGroup(groupID),
 				_temp = parseInt(group._$html.css('top'),10)+parseInt(this._top,10);
