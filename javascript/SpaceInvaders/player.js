@@ -22,6 +22,10 @@ SpaceInvaders.player = {
     getLeft: function(){
     	return this._left;
     },
+    setLeft: function(left){
+    	this._left = left;
+    	return this;
+    },
     getBulletsLength: function(){
     	return this._bullets.length;
     },
@@ -72,24 +76,24 @@ SpaceInvaders.player = {
         return this._$html;
     },
     move: function(direction, amount) {
-    	/*
-    	 * 
-    	 * TODO : verificação se sai do stage
-    	 * 
-    	 */
     	var moveDirection = {
 			left : function(amount){
-				this._$html.css('left', parseInt(this._$html.css('left'),10) - amount);
-				this._left -= amount;
-				//this._$html.animate({"left": "-=" +  amount}, "fast");
+				this._$html.animate({
+					"left": 0
+					},{
+						duration: 'slow',
+						step: $.proxy(this.setLeft, this),
+					});
 			},
 			right : function(amout){
-				this._$html.css('left', parseInt(this._$html.css('left'),10) + amount);
-				this._left += amount;
-				//this._$html.animate({"left": "+=" +  amount}, "fast");
+				this._$html.animate({
+					"left": SpaceInvaders.config.STAGE_WIDTH-SpaceInvaders.config.PLAYER_WIDTH
+					},{
+						duration: 'slow',
+						step: $.proxy(this.setLeft, this),
+					});
 			}
 		}
-		
 		if(this.getMoving() && moveDirection[direction]){
 			moveDirection[direction].call(this, amount);
 		}
@@ -112,6 +116,7 @@ SpaceInvaders.player = {
     	var keyID = evt.which;
     	if(keyID == 37 || keyID == 39){
     		this.setMoving(false);
+    		this._$html.stop(true, false);
     	}
     },
     

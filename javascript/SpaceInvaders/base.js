@@ -124,6 +124,6 @@ var SpaceInvaders = {
             this.bulletCollection.dispose();
             this.player.dispose();
             this.stage.dispose();
-        } catch (e) { alert(e); }
+        } catch (e) { /*alert(e);*/ }
     }
 };

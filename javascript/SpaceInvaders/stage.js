@@ -21,6 +21,10 @@ SpaceInvaders.stage = {
         this._$html.append(el);
         return this._$html;
     },
+    
+    getWidth : function(){
+    	return this._width;
+    },
     html: function() {
         return this._$html;
     },
