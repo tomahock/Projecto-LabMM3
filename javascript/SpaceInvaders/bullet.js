@@ -78,6 +78,7 @@ SpaceInvaders.bullet = {
 							if(SpaceInvaders.enemiesCollection.isInside(this, groupID, enemyID)){
 								console.warn(i,j);
 								var enemy = SpaceInvaders.enemiesCollection.get(enemyID,groupID);
+								SpaceInvaders.enemiesCollection.remove(enemyID,groupID);
 								this.colide(enemy);
 								return;
 							}

@@ -47,9 +47,12 @@ SpaceInvaders.enemiesCollection = {
         }
     },
     
-    remove : function(idx){
-    	this._enemies.splice(idx,1).dispose();
-    	return this;
+    remove : function(idx, group){
+    	if (group) {
+    		return this._groups[group].remove(idx);
+    	} else {
+    		return this._enemies.splice(idx,1).dispose();
+    	}
     },
     
     removeGroup : function(idx){
@@ -74,6 +77,7 @@ SpaceInvaders.enemiesCollection = {
     },
     
 	isInside: function(bullet, groupID, enemyID){
+		console.warn(bullet);
 		console.warn('groupID=>'+groupID+'||enemyID=>'+enemyID);
 		var bulletLeft = bullet.getLeft(),
 			bulletTop = bullet.getTop();
