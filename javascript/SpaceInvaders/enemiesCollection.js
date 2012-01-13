@@ -76,18 +76,14 @@ SpaceInvaders.enemiesCollection = {
 	isInside: function(bullet, groupID, enemie){
 		var bulletLeft = bullet.getLeft(),
 			bulletTop = bullet.getTop();
-			
 		if(!groupID && !enemie){
-			console.warn('INSIDE 1º if');
-			console.warn('bulletTop => '+ bulletTop + ' this.getTop() => ' + this.getTop() + ' this.getTop() + this._height => ' + (this.getTop()+this._height));
-			if(bulletTop <= this.getTop() && bulletTop >= (this.getTop()+this._height)){
-				console.warn('returning true;');
-				return true;
-			}
+			return(bulletLeft >= this.getLeft() && bulletLeft <= (this.getLeft()+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height));
 		}else if(groupID && !enemie){
 			var group = this.getGroup(groupID);
 			console.warn(group);
-			console.warn('INSIDE 2º if');
+			if(bulletLeft >= group._$html.css('left') && bulletLeft <= (group._$html.css('left')+this._width) && bulletTop >= group._$html.css('top') && bulletTop <= (group._$html.css('top')+(paceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN))){
+				console.warn('INSIDE 2º if');
+			}
 			return true;
 		}else if(groupID && enemie){
 			return true;

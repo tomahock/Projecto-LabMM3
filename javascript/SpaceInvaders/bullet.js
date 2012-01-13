@@ -22,25 +22,36 @@ SpaceInvaders.bullet = {
     },
     
     getLeft: function(){
-    	return this._left
+    	return this._left;
+    },
+    
+    html : function(){
+    	return this._$html;
     },
     
     getTop:	function(){
-    	return parseInt(this._$html.css('top'),10)
+    	return this._top;
     },
     
+    setTop : function(top){
+    	this._top = top;
+    	return this;
+    },
 	move: function(){
-		this._isMoving = true;
-		this._interval = window.setInterval($.proxy(this.checkColide, this),0);
+		
 		this._$html.animate({
 			top : 0
 		}, {
 			duration: 1500,
-			sucess: function(){
+			step: $.proxy(this.setTop, this),
+			complete: $.proxy(function(){
 				this._isMoving=false;
 				window.clearInterval(this._interval);
-				}
+			},this)
 		});
+		
+		this._isMoving = true;
+		this._interval = window.setInterval($.proxy(this.checkColide, this),10);
 	},
 	
 	checkColide: function(){
@@ -51,18 +62,15 @@ SpaceInvaders.bullet = {
 				for(i ; i >= 0; i--){
 					var group = SpaceInvaders.enemiesCollection.getGroup(i);
 					if(SpaceInvaders.enemiesCollection.isInside(this,i)){
-						var j = group._enemies.length;
-						console.warn('inside');
+						var j = group._enemies.length-1;
 						for(j; j>= 0; j--){
-							if(group._enemies[j].isInside(this, i, j)){
+							if(SpaceInvaders.enemiesCollection.isInside(this, i, j)){
 								this.colide();
 								return;
 							}
 						}
 					}
 				}
-			}else{
-				window.clearInterval(this._interval,this);
 			}
 		}
 	},
@@ -72,8 +80,11 @@ SpaceInvaders.bullet = {
 	removeEvent: function(){},
 	
 	colide: function() {
+		window.clearInterval(this._interval,this);
+		console.warn(this);
         this._$html.remove();
         this._colided = true;
+        console.warn('FUCKING COLIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     },
     
     dispose: function() {
