@@ -77,13 +77,22 @@ SpaceInvaders.enemiesCollection = {
 		var bulletLeft = bullet.getLeft(),
 			bulletTop = bullet.getTop();
 		if(!groupID && !enemyID){
-			return(bulletLeft >= this.getLeft() && bulletLeft <= (this.getLeft()+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height));
+			return(bulletLeft >= 0 && bulletLeft <= (this.getLeft()+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height));
 		}else if(groupID && !enemyID){
-			var group = this.getGroup(groupID);
-			return (bulletLeft >= parseInt(group._$html.css('left'),10) && bulletLeft <= (parseInt(group._$html.css('left'),10)+this._width) && bulletTop >= parseInt(group._$html.css('top'),10) && bulletTop <= (parseInt(group._$html.css('top'),10)+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN)));
+			var group = this.getGroup(groupID),
+				firstEnemy = this.get(0,groupID),
+				_temp = parseInt(group._$html.css('top'),10)+parseInt(this._top,10);
+			console.warn('bulletLeft >= this._left && bulletLeft <= (this._left+this._width) && bulletTop >= group._$html.css("top")+this._top && bulletTop <= group._$html.css("top")+this._top+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN)');
+			console.warn(group);
+			console.warn(bulletLeft + ' >= ' + this._left + ' && ' + bulletLeft + ' <= ' + (this._left+this._width) + ' && ' + bulletTop + ' >= ' + _temp + ' && ' + bulletTop + ' <= ' + (parseInt(group._$html.css('top'),10)+this._top+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN)));
+			console.warn(bulletLeft >= this._left && bulletLeft <= (this._left+this._width) && bulletTop >= _temp && bulletTop <= _temp+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN));
+			console.warn(parseInt(group._$html.css('top'),10));
+			console.warn(this._top);
+			console.warn(_temp);
+			return (bulletLeft >= this._left && bulletLeft <= (this._left+this._width) && bulletTop >= _temp && bulletTop <= _temp+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN));
 		}else if(groupID && enemyID){
 			enemy = this.get(enemyID, groupID);
-			return (bulletLeft >= parseInt(enemy._$html.css('left'),10) && bulletLeft <= (parseInt(enemy._$html.css('left'),10)+SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= parseInt(enemy._$html.css('top'),10) && bulletTop <= (parseInt(enemy._$html.css('top'),10)+SpaceInvaders.config.ENEMY_HEIGHT));
+			return (bulletLeft >= this._left + parseInt(enemy._$html.css('left'),10) && bulletLeft <= (this._left + parseInt(enemy._$html.css('left'),10)+SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= parseInt(enemy._$html.css('top'),10) && bulletTop <= (parseInt(enemy._$html.css('top'),10)+SpaceInvaders.config.ENEMY_HEIGHT));
 		}else{
 			return false;
 		}

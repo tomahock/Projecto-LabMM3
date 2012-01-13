@@ -47,6 +47,7 @@ SpaceInvaders.bullet = {
 			complete: $.proxy(function(){
 				this._isMoving=false;
 				window.clearInterval(this._interval);
+				this.remove();
 			},this)
 		});
 		
@@ -81,13 +82,15 @@ SpaceInvaders.bullet = {
 	
 	colide: function(enemy) {
 		window.clearInterval(this._interval,this);
-		console.warn(SpaceInvaders.enemiesCollection._groups);
-		console.warn(enemy);
 		enemy.destroy();
-        this._$html.remove();
         this._colided = true;
-        
+        this.remove();
         console.warn('FUCKING COLIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    },
+    
+    remove : function(){
+    	this._$html.remove();
+    	this.dispose();
     },
     
     dispose: function() {
