@@ -1,0 +1,153 @@
+/* geral */
+
+ body{
+     background: #000000;
+}
+
+
+
+/* cores caracteres */
+
+.p{
+    color:#000000;
+}
+
+.b{
+    color:#ffffff;
+}
+
+.v66{
+    color:#660000;
+}
+
+.c66{
+    color: #666666;
+}
+
+.r{
+    color: red;
+}
+
+.y{
+    color: yellow;
+}
+
+h1{
+    font-size: 1.2em;
+}
+
+a{
+    font-size: 1.2em;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#texto{
+    color: #ffffff;
+    position: absolute;
+    top:40%;
+    left:40%;
+}
+
+#cenario{
+    color: white;
+    font-size: 80%;
+    line-height: 80%;
+}
+
+#mobexplode01{
+    position: absolute;
+    top:40%;
+    left: 30%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mobexplode02{
+    position: absolute;
+    top:40%;
+    left: 60%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mobexplode03{
+    position: absolute;
+    top:40%;
+    left: 70%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob01a, #mob01b{
+    position: absolute;
+    top:50%;
+    left: 30%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob02a, #mob02b{
+    position: absolute;
+    top:50%;
+    left: 40%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob03a, #mob03b{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob04{
+    position: absolute;
+    top:50%;
+    left: 60%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob05{
+    position: absolute;
+    top:50%;
+    left: 70%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob06{
+    position: absolute;
+    top:60%;
+    left: 30%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob07{
+    position: absolute;
+    top:60%;
+    left: 750px;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob08{
+    position: absolute;
+    top:60%;
+    left: 40%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob09{
+    position: absolute;
+    top:60%;
+    left: 850px;
+    font-size: 50%;
+    line-height: 50%;
+}
+
