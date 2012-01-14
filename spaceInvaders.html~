@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://raw.github.com/necolas/normalize.css/master/normalize.css" type="text/css" media="screen" charset="utf-8">
+  <style>
+    html, 
+    body {
+        height: 100%;
+        overflow: hidden;
+        background-color: black;
+        color: white;
+        font-size: 5px;
+        line-height: 0;
+        font-weight: bold;
+    }
+    #wrapper{
+		  margin:               0px auto;
+		  width:                930px;
+		  height:	100%;
+		  position:		relative;
+	}
+    .invisible { visibility: hidden; }
+        
+    .black { color: black; }
+    .white { color: white; }
+    .yellow { color: yellow;
+    		  font-size: 10px; }
+    
+    .a .modelB {display: none;}
+    .b .modelA {display: none;}
+    </style>
+    
+  <title>Brevemente</title>
+
+</head>
+<body>
+    <script type="text/javascript" src="libs/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/base.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/stage.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/bulletCollection.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/player.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/enemy.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/enemiesGroupCollection.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/enemiesCollection.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/bullet.js"></script>
+    <script type="text/javascript" src="javascript/javascript.js"></script>
+ 
+    <div id="wrapper"></div>
+</body>
+</html> 

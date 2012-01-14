@@ -2,6 +2,8 @@ SpaceInvaders.stage = {
     init: function(width, height) {
         this._width = width || '100%';
         this._height = height || '100%';
+	this._addHandler = $.proxy(this.fire, this);
+	this.addEvent();
         return this;
     },
     render: function() {
@@ -27,6 +29,16 @@ SpaceInvaders.stage = {
     },
     html: function() {
         return this._$html;
+    },
+    addEvent : function(){
+    	$(window).on("onFire", this._addHandler);
+console.warn('addEvent()');
+    },
+fire : function(){
+console.warn('fire()');
+    	var aud01 = $("#aud01"	)[0];
+aud01.pause();
+		aud01.play();
     },
     dispose: function() {}
 };
