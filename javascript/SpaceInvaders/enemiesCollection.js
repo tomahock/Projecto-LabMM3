@@ -76,27 +76,23 @@ SpaceInvaders.enemiesCollection = {
     	return this;
     },
     
-	isInside: function(bullet, groupID, enemyID){
-		console.warn(bullet);
-		console.warn('groupID=>'+groupID+'||enemyID=>'+enemyID);
+	isInside: function(bullet, groupIDg, enemyIDe){
 		var bulletLeft = bullet.getLeft(),
-			bulletTop = bullet.getTop();
-		if(!groupID && !enemyID){
-			console.warn('isInside(bullet)');
+			bulletTop = bullet.getTop(),
+			groupID = parseInt(groupIDg,10),
+			enemyID = parseInt(enemyIDe,10);
+			console.warn('groupID=> ' + groupID + ' || groupIDg=> ' + groupIDg + ' || enemyID=> ' + enemyID + ' || enemyIDe=> ' + enemyIDe );
+		if(!groupIDg && !enemyIDe){
 			return(bulletLeft >= 0 && bulletLeft <= (this.getLeft()+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height));
-		}else if(groupID && !enemyID){
-			console.warn('isInside(bullet, groupID)');
+		}else if(groupIDg && !enemyIDe){
 			var group = this.getGroup(groupID),
 				firstEnemy = this.get(0,groupID),
 				_temp = parseInt(group._$html.css('top'),10)+parseInt(this._top,10);
 			return (bulletLeft >= this._left && bulletLeft <= (this._left+this._width) && bulletTop >= _temp && bulletTop <= _temp+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN));
-		}else if(groupID && enemyID){
-			console.warn('in isInside(this, groupID, enemyID)');
+		}else if(groupIDg && enemyIDe){
 			var enemy = this.get(enemyID, groupID),
 				group = this.getGroup(groupID),
 				_temp = parseInt(group._$html.css('top'),10)+parseInt(this._top,10);
-			console.warn('bulletLeft >= this._left + parseInt(enemy._$html.css("left"),10) && bulletLeft <= (this._left + parseInt(enemy._$html.css("left"),10)+SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= _temp && bulletTop <= _temp +SpaceInvaders.config.ENEMY_HEIGHT');
-			console.warn(bulletLeft + ' >= ' + (this._left + parseInt(enemy._$html.css('left'),10)) + ' && ' + bulletLeft + ' <= ' + (this._left + parseInt(enemy._$html.css('left'),10)+SpaceInvaders.config.ENEMY_WIDTH) + ' && ' + bulletTop + ' >= ' + _temp + ' && ' + bulletTop + ' <= ' + (_temp +SpaceInvaders.config.ENEMY_HEIGHT));
 			return (bulletLeft >= this._left + parseInt(enemy._$html.css('left'),10) && bulletLeft <= (this._left + parseInt(enemy._$html.css('left'),10)+SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= _temp && bulletTop <= _temp +SpaceInvaders.config.ENEMY_HEIGHT);
 		}else{
 			return false;
