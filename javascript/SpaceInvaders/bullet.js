@@ -74,10 +74,15 @@ SpaceInvaders.bullet = {
 						for(var j=0; j<=group._enemies.length-1; j++){//j == enemyID
 							var enemyID = j,
 								enemyIDe = j + 'e';
-								//console.warn('enemyID => ' + enemyID);
+								console.warn('enemyID => ' + enemyID);
 							if(SpaceInvaders.enemiesCollection.isInside(this, groupIDg, enemyIDe)){
-								var enemy = SpaceInvaders.enemiesCollection.get(enemyID,groupIDg);
-								//console.warn('enemyID destroy => ' + enemyID);
+								if(groupID == 0){
+									enemyID2 = (group._enemies.length-1)-j;
+								}else{
+									enemyID2 = j;
+								}
+								var enemy = SpaceInvaders.enemiesCollection.get(enemyID2,groupIDg);
+								console.warn('enemyID destroy => ' + enemyID);
 								SpaceInvaders.enemiesCollection.remove(enemyID,groupIDg);
 								this.colide(enemy);
 								return;

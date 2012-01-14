@@ -63,7 +63,7 @@ var SpaceInvaders = {
                 group.add(enemy);
                 k -= 1;
             }
-
+			console.warn(group);
             this.enemiesCollection.addGroup(group, true);
             i = (j % 2 === 0) ? i -= 1 : i;
             j -= 1;

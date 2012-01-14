@@ -103,7 +103,7 @@ SpaceInvaders.enemy = {
                     return $modelContainer;
                 };
 
-            this._$html = $('<div class="enemy ' + this.getType() + '"></div>').css({
+            this._$html = $('<div class="enemy ' + this.getType()+'"></div>').css({
                 'position': 'absolute',
                 width: SpaceInvaders.config.ENEMY_WIDTH,
                 height: SpaceInvaders.config.ENEMY_HEIGHT

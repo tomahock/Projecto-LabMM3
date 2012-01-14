@@ -1,5 +1,6 @@
 SpaceInvaders.enemiesGroupCollection = {
     init: function() {
+    	//console.warn('init group');
         return this;
     },
     
