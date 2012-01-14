@@ -1,26 +1,55 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-    <head>
-        <title>&#9762;&#9762;&#9762;THE ASCII CRUSADE&#9762;&#9762;&#9762;</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="screen" />
-        <script type="text/javascript" src="/libs/jquery.js" language="JavaScript"></script>
-        <script type="text/javascript">
-			function startintro() {
-				$("#intro01").delay(500).fadeIn(1000).delay(500).fadeOut(1000);
-				$("#intro02").delay(3001).fadeIn(1000).delay(500).fadeOut(1000);
-				$("#intro03").delay(5501).fadeIn(1000).delay(500).fadeOut(1000);
-				$("#intro04").delay(8001).fadeIn(1000).delay(500).fadeOut(1000);
-				$("#intro05").delay(10501).fadeIn(1000).delay(500).fadeOut(1000);
-				$("#intro06").delay(13001).fadeIn(1000).delay(1000).fadeOut(1000);
-                $("#intro07").delay(16001).fadeIn(1000).delay(1000).fadeOut(1000);
-                $("#intro08").delay(19001).fadeIn(1000).delay(500).fadeOut(1000);
-                $("#intro09").delay(21501).fadeIn(1000);
-                $("#intro10").delay(23001).fadeIn(1000);
-			}
-        </script>
-    </head>
+<head>
+    <title>&#9762;&#9762;&#9762;THE ASCII CRUSADE&#9762;&#9762;&#9762;</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <script type="text/javascript" src="libs/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/base.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/stage.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/bulletCollection.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/player.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/enemy.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/enemiesGroupCollection.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/enemiesCollection.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/bullet.js"></script>
+    <script type="text/javascript" src="javascript/javascript.js"></script>
+    <script type="text/javascript">
+        function startintro() {
+            $("#intro01").delay(500).fadeIn(1000).delay(500).fadeOut(1000);
+            $("#intro02").delay(3001).fadeIn(1000).delay(500).fadeOut(1000);
+            $("#intro03").delay(5501).fadeIn(1000).delay(500).fadeOut(1000);
+            $("#intro04").delay(8001).fadeIn(1000).delay(500).fadeOut(1000);
+            $("#intro05").delay(10501).fadeIn(1000).delay(500).fadeOut(1000);
+            $("#intro06").delay(13001).fadeIn(1000).delay(1000).fadeOut(1000);
+            $("#intro07").delay(16001).fadeIn(1000).delay(1000).fadeOut(1000);
+            $("#intro08").delay(19001).fadeIn(1000).delay(500).fadeOut(1000);
+            $("#intro09").delay(21501).fadeIn(1000);
+            $("#intro10").delay(23001).fadeIn(1000);
+        }
+    </script>
+    <style type="text/css">
+        body{
+            background: #000000;
+        }
+        .b{
+            color:#ffffff;
+        }
+        .p{
+            color:#000000;
+        }
+        h1{
+            font-size: 1.2em;
+        }
+
+        a{
+            font-size: 1.2em;
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
 
     <body onload="startintro()">
     <audio autoplay="autoplay">
@@ -29,7 +58,7 @@
     </audio>
         <center>
             <div id="intromain">
-                <div id="top">
+                <div id="top" style="height: 100px;">
                     &nbsp;
                 </div>
                 <div id="intro01" style="display:none;">
@@ -88,7 +117,7 @@
                     </pre>
                 </div>
                 <div id="intro10" style="display: none;">
-                   <a href="#">Jogar</a>
+                   <a href="spaceInvaders.html">Jogar</a>
                 </div>
 
             </div>
