@@ -81,7 +81,6 @@ SpaceInvaders.enemiesCollection = {
 			bulletTop = bullet.getTop(),
 			groupID = parseInt(groupIDg,10),
 			enemyID = parseInt(enemyIDe,10);
-			console.warn('groupID=> ' + groupID + ' || groupIDg=> ' + groupIDg + ' || enemyID=> ' + enemyID + ' || enemyIDe=> ' + enemyIDe );
 		if(!groupIDg && !enemyIDe){
 			return(bulletLeft >= 0 && bulletLeft <= (this.getLeft()+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height));
 		}else if(groupIDg && !enemyIDe){
@@ -178,8 +177,6 @@ SpaceInvaders.enemiesCollection = {
     animationStop: function() {
         if (this._interval) {
             window.clearInterval(this._interval);
-            this._interval = null;
-            delete this._interval;
         }
         return this;
     },
@@ -203,30 +200,40 @@ SpaceInvaders.enemiesCollection = {
 				this._top += amount;
 			}
 		}
-		if(!moveDirection){
-			return;
-		}else{
+		
+		if(moveDirection[direction]){
 			moveDirection[direction].call(this, amount);
 		}
 		
 		return this;
     },
+    
     dance: function(nivel){
     	this._interval = window.setInterval($.proxy(function(){
     		var mov = nivel.shift();
-    		if(mov){
-    			this.move(mov,5);
-    		}
+    		
+    		if(mov){ this.move(mov,5); }
+    		else { this.stopDance(); }
   		}, this), 1000);
     },
-    remove: function() {},
+    
+    stopDance : function(){
+    	if(this._danceInterval){
+    		window.clearInterval(this._danceInterval);
+    	}	
+    },
+    
     dispose: function() {
         this.animationStop();
-        var i = 0;
-        if (this._groups.length) {
-            for (i; i >= 0; i -= 1) {
-
-            }
-        }
+        this.stopDance();
+        this.removeAll();
+        this._$html.remove();
+        this._$html = null;
+        this._groups = null;
+        this._enemies = null;
+        this._left = null;
+        this._top = null;
+        this._width = null;
+        this._height = null;
     }
 };

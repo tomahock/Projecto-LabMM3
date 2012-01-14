@@ -80,7 +80,7 @@ SpaceInvaders.enemiesGroupCollection = {
     },
     
     remove: function(idx) {
-    	this._enemies.splice(idx,1).dispose();
+    	this._enemies.splice(idx,1);
     },
     
     removeAll : function(){

@@ -97,7 +97,6 @@ SpaceInvaders.bullet = {
         this._colided = true;
         this._$html.stop(true, false);
         this.remove();
-        console.warn('FUCKING COLIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     },
     remove : function(){
        	//window.trigger('collision');
