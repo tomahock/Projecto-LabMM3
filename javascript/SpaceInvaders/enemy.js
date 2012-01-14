@@ -14,6 +14,10 @@ SpaceInvaders.enemy = {
         return this._model;
     },
     
+    getLeft: function() {
+    	return this._$html.css('left');
+    },
+    
     move: function(direction, amount) {
 		var moveDirection = {
 			top : function(amount){
@@ -60,6 +64,7 @@ SpaceInvaders.enemy = {
     destroy: function() {
         this._$html.remove();
         this._destroyed = true;
+        this.dispose();
     },
     
     fire: function() {},

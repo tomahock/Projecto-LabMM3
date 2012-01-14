@@ -7,6 +7,10 @@ SpaceInvaders.enemiesGroupCollection = {
         return this._enemies[idx];
     },
     
+    getTop : function(){
+    	return this._$html.css('top');
+    },
+    
     add: function(enemy) {
         if (!this._enemies) {
             this._enemies = [];
@@ -80,7 +84,12 @@ SpaceInvaders.enemiesGroupCollection = {
     },
     
     remove: function(idx) {
+    	console.warn('idx: ' + idx);
+    	var enemy = this.get(idx);
+    	enemy.destroy();
+		console.warn(this);
     	this._enemies.splice(idx,1);
+    	
     },
     
     removeAll : function(){

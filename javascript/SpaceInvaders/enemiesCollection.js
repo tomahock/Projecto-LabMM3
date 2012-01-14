@@ -41,7 +41,8 @@ SpaceInvaders.enemiesCollection = {
 
     get : function(idx, group) {
         if (group) {
-            return this._groups[group].get(idx);
+        	var groupP = parseInt(group,10);
+            return this._groups[groupP].get(idx);
         } else {
             return this._enemies[idx];
         }
@@ -49,9 +50,11 @@ SpaceInvaders.enemiesCollection = {
     
     remove : function(idx, group){
     	if (group) {
-    		return this._groups[group].remove(idx);
+    		var groupP = parseInt(group,10);
+    		console.warn(groupP);
+    		return this._groups[groupP].remove(idx);
     	} else {
-    		return this._enemies.splice(idx,1).dispose();
+    		return this._enemies.splice(idx,1).destroy();
     	}
     },
     
@@ -86,13 +89,13 @@ SpaceInvaders.enemiesCollection = {
 		}else if(groupIDg && !enemyIDe){
 			var group = this.getGroup(groupID),
 				firstEnemy = this.get(0,groupID),
-				_temp = parseInt(group._$html.css('top'),10)+parseInt(this._top,10);
+				_temp = parseInt(group.getTop(),10)+parseInt(this._top,10);
 			return (bulletLeft >= this._left && bulletLeft <= (this._left+this._width) && bulletTop >= _temp && bulletTop <= _temp+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN));
 		}else if(groupIDg && enemyIDe){
 			var enemy = this.get(enemyID, groupID),
 				group = this.getGroup(groupID),
-				_temp = parseInt(group._$html.css('top'),10)+parseInt(this._top,10);
-			return (bulletLeft >= this._left + parseInt(enemy._$html.css('left'),10) && bulletLeft <= (this._left + parseInt(enemy._$html.css('left'),10)+SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= _temp && bulletTop <= _temp +SpaceInvaders.config.ENEMY_HEIGHT);
+				_temp = parseInt(group.getTop(),10)+parseInt(this._top,10);
+			return (bulletLeft >= this._left + parseInt(enemy.getLeft(),10) && bulletLeft <= (this._left + parseInt(enemy.getLeft(),10)+SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= _temp && bulletTop <= _temp +SpaceInvaders.config.ENEMY_HEIGHT);
 		}else{
 			return false;
 		}

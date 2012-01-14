@@ -2,7 +2,7 @@ SpaceInvaders.bullet = {
 	
     init: function() {
     	this._left = SpaceInvaders.player.getLeft()+(SpaceInvaders.config.PLAYER_WIDTH/2);
-    	this._top = ((SpaceInvaders.config.ENEMY_HEIGHT+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.enemiesCollection.getLength()) + 100;
+    	this._top = ((SpaceInvaders.config.ENEMY_HEIGHT+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.enemiesCollection.getLength()) + 150;
     	this._isMoving = false;
     	this._bulletSpeed = 1;
     	this._colided = false;
@@ -52,7 +52,7 @@ SpaceInvaders.bullet = {
 		});
 		
 		this._isMoving = true;
-		this._interval = window.setInterval($.proxy(this.checkColide, this),10);
+		this._interval = window.setInterval($.proxy(this.checkColide, this),0);
 	},
 	
 	checkColide: function(){
@@ -74,9 +74,11 @@ SpaceInvaders.bullet = {
 						for(var j=0; j<=group._enemies.length-1; j++){//j == enemyID
 							var enemyID = j,
 								enemyIDe = j + 'e';
+								//console.warn('enemyID => ' + enemyID);
 							if(SpaceInvaders.enemiesCollection.isInside(this, groupIDg, enemyIDe)){
-								var enemy = SpaceInvaders.enemiesCollection.get(enemyID,groupID);
-								SpaceInvaders.enemiesCollection.remove(enemyID,groupID);
+								var enemy = SpaceInvaders.enemiesCollection.get(enemyID,groupIDg);
+								//console.warn('enemyID destroy => ' + enemyID);
+								SpaceInvaders.enemiesCollection.remove(enemyID,groupIDg);
 								this.colide(enemy);
 								return;
 							}
@@ -93,7 +95,6 @@ SpaceInvaders.bullet = {
 	
 	colide: function(enemy) {
 		window.clearInterval(this._interval,this);
-		enemy.destroy();
         this._colided = true;
         this._$html.stop(true, false);
         this.remove();
