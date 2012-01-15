@@ -36,13 +36,14 @@ SpaceInvaders.enemiesCollection = {
     },
 
     getGroup : function(idx) {
-        return this._groups[idx];
+    	var groupID = parseInt(idx,10);
+        return this._groups[groupID];
     },
 
     get : function(idx, group) {
+    	var groupID = parseInt(group);
         if (group) {
-        	var groupP = parseInt(group,10);
-            return this._groups[groupP].get(idx);
+            return this._groups[groupID].get(idx);
         } else {
             return this._enemies[idx];
         }
@@ -87,13 +88,13 @@ SpaceInvaders.enemiesCollection = {
 		if(!groupIDg && !enemyIDe){
 			return(bulletLeft >= 0 && bulletLeft <= (this.getLeft()+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height));
 		}else if(groupIDg && !enemyIDe){
-			var group = this.getGroup(groupID),
+			var group = this.getGroup(groupIDg),
 				firstEnemy = this.get(0,groupID),
 				_temp = parseInt(group.getTop(),10)+parseInt(this._top,10);
 			return (bulletLeft >= this._left && bulletLeft <= (this._left+this._width) && bulletTop >= _temp && bulletTop <= _temp+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN));
 		}else if(groupIDg && enemyIDe){
-			var enemy = this.get(enemyID, groupID),
-				group = this.getGroup(groupID),
+			var enemy = this.get(enemyID, groupIDg),
+				group = this.getGroup(groupIDg),
 				_temp = parseInt(group.getTop(),10)+parseInt(this._top,10);
 			return (bulletLeft >= this._left + parseInt(enemy.getLeft(),10) && bulletLeft <= (this._left + parseInt(enemy.getLeft(),10)+SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= _temp && bulletTop <= _temp +SpaceInvaders.config.ENEMY_HEIGHT);
 		}else{
