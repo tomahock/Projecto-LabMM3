@@ -199,10 +199,12 @@ SpaceInvaders.enemiesCollection = {
             window.clearInterval(this._interval);
         }
         this._interval = window.setInterval($.proxy(toggleClass, this), 1000);
+        console.warn('star Interval' + this._interval);
         return this;
     },
 
     animationStop: function() {
+    	console.warn('stop Interval' + this._interval);
         if (this._interval) {
             window.clearInterval(this._interval);
         }
@@ -237,7 +239,7 @@ SpaceInvaders.enemiesCollection = {
     },
     
     dance: function(nivel){
-    	this._interval = window.setInterval($.proxy(function(){
+    	this._danceInterval = window.setInterval($.proxy(function(){
     		var mov = nivel.shift();
     		
     		if(mov){ this.move(mov,5); }
@@ -266,5 +268,7 @@ SpaceInvaders.enemiesCollection = {
         this._width = null;
         this._height = null;
         this._enemyDownHandler = null;
+        this._interval = null;
+        this._danceInterval = null;
     }
 };

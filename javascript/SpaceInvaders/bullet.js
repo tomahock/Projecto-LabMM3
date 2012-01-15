@@ -93,18 +93,18 @@ SpaceInvaders.bullet = {
 	removeEvent: function(){},
 	
 	colide: function(enemy) {
-		window.clearInterval(this._interval,this);
+		window.clearInterval(this._interval);
         this._colided = true;
         this._$html.stop(true, false);
         console.warn(SpaceInvaders.enemiesCollection.getEnemyNumber());
         this.remove(enemy);
     },
     remove : function(enemy){
-       	//window.trigger('collision');
     	$(window).trigger('collision', [this._id, enemy]);
    	},
     dispose: function() {
     	if (this._interval) { window.clearInterval(this._interval); }
+    	this._interval = null;
         this.removeEvent();
         this._$html.remove();
         this._$html = null;

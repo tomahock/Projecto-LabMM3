@@ -161,9 +161,9 @@ var SpaceInvaders = {
     },
     shutdown: function() {
     	this.removeEvent();
+    	this.enemiesCollection.dispose();
     	this.bulletCollection.dispose();
     	this.player.dispose();
-    	this.enemiesCollection.dispose();
     	this.stage.dispose();
     }
 };
