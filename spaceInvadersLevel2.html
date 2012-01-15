@@ -1,0 +1,46 @@
+<audio id="aud01" preload="auto"><source src="audio/shoot.mp3"></source><source src="audio/shoot.ogg"></source><source src="audio/shoot.wav"></source></audio>
+    <script type="text/javascript" src="libs/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/base.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/stage.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/bulletCollection.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/player.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/enemy.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/enemiesGroupCollection.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/enemiesCollection.js"></script>
+    <script type="text/javascript" src="javascript/SpaceInvaders/bullet.js"></script>
+    <script type="text/javascript">
+    	$(function() {
+
+    // O jQuery falha em arquitectura de código
+    // Esta simples funcao, permite de alguma forma
+    // colmatar uma falha simples na herança em js.
+    // é necessário verificar se o browser ja tem
+    // a Object.create (ES5), pois essa é a função correcta
+    // para fazer isto.
+    $.beget = function(o) {
+        function F() {} //jslint warning...
+        if (Object.create) {
+            return Object.create(o);
+        } else {
+            F.prototype = o;
+            return new F();
+        }
+    };
+
+    // Vamos carregar as naves e guarda-las
+    $.getJSON('assets/spaceships.json', function(data) {
+        SpaceInvaders.spaceshipsModels = data;
+        console.warn('init Level 2');
+        SpaceInvaders.init(2);
+    });
+    
+    
+    $(window).on("levelPass", function(){
+    	$(window).off("levelPass");
+    	$('#game').empy();
+    	$('#game').load('cenario02.html');
+    });
+    // Corre quando se fecha a janela ou se faz refresh
+	$(window).on('unload', SpaceInvaders.shutdown);
+});
+    </script>
