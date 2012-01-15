@@ -96,7 +96,6 @@ SpaceInvaders.bullet = {
 		window.clearInterval(this._interval);
         this._colided = true;
         this._$html.stop(true, false);
-        console.warn(SpaceInvaders.enemiesCollection.getEnemyNumber());
         this.remove(enemy);
     },
     remove : function(enemy){

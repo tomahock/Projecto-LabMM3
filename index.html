@@ -7,7 +7,13 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css" />
     <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" /> 
     <script type="text/javascript" src="libs/jquery.min.js"></script>
-    <script type="text/javascript">
+
+</head>
+
+    <body onload="startintro()">
+    <div id="wrapper">
+    	<div id="game">
+    		<script type="text/javascript">
         function startintro() {
             $("#intro01").delay(500).fadeIn(1000).delay(500).fadeOut(1000);
             $("#intro02").delay(3001).fadeIn(1000).delay(500).fadeOut(1000);
@@ -25,12 +31,6 @@
         	$('#game').load('spaceInvadersLevel1.html');
         };
     </script>
-
-</head>
-
-    <body onload="startintro()">
-    <div id="wrapper">
-    	<div id="game">
 	    <audio autoplay="autoplay">
 	        <source src="audio/bs01.ogg" type="audio/ogg" />
 	        <source src="audio/bs01.mp3" type="audio/mp3" />

@@ -34,16 +34,19 @@
 }
 
 .fd05{
+			line-height: 80%;
             position: absolute;
             top: 0px;
             left: 0px;
         }
 .fd06, .fd08{
+			line-height: 80%;
             position: absolute;
             top: 250px;
             left:20px;
         }
         .fd07{
+        	line-height: 80%;
             position: absolute;
             top: 250px;
             left:0px;

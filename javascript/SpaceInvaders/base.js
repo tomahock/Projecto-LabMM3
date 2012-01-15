@@ -93,7 +93,6 @@ var SpaceInvaders = {
             this.stage.append(this.enemiesCollection.render());
             this.stage.append(this.player.render());
             this.enemiesCollection.animationStart();
-            //console.log("this.spaceshipsModels[this.config.LEVEL_TYPE + this._level]", this.spaceshipsModels, this._level, this.spaceshipsModels[this.config.LEVEL_TYPE + this._level])
             this.enemiesCollection.dance(this.spaceshipsModels[this.config.LEVEL_TYPE + this._level]);
             this.addEvent();
 
@@ -152,8 +151,6 @@ var SpaceInvaders = {
     	this.shutdown();
     },
     enemyDown : function(){
-    	console.warn('enemyDown');
-    	console.warn(SpaceInvaders.enemiesCollection.getEnemyNumber());
     	if(!SpaceInvaders.enemiesCollection.getEnemyNumber()){
     		$(window).trigger('levelPass');
     		this.shutdown();

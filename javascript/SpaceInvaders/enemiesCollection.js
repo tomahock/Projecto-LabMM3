@@ -34,7 +34,6 @@ SpaceInvaders.enemiesCollection = {
 		this._height = (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS;
 		this._collisionHandler = $.proxy(this.collision, this);
 		this._enemiesNumber = SpaceInvaders.config.ENEMY_COLUMNS * SpaceInvaders.config.ENEMY_ROWS;
-		console.log(this._enemiesNumber);
 		this.addEvent();
         return this;
     },
@@ -199,12 +198,10 @@ SpaceInvaders.enemiesCollection = {
             window.clearInterval(this._interval);
         }
         this._interval = window.setInterval($.proxy(toggleClass, this), 1000);
-        console.warn('star Interval' + this._interval);
         return this;
     },
 
     animationStop: function() {
-    	console.warn('stop Interval' + this._interval);
         if (this._interval) {
             window.clearInterval(this._interval);
         }

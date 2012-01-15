@@ -1,22 +1,6 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-	<title>&#9762;&#9762;&#9762;THE ASCII CRUSADE&#9762;&#9762;&#9762;</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="css/reset.css" />
-    <script type="text/javascript" src="libs/jquery.min.js"></script>
-    <script type="text/javascript" src="javascript/SpaceInvaders/base.js"></script>
-    <script type="text/javascript" src="javascript/SpaceInvaders/stage.js"></script>
-    <script type="text/javascript" src="javascript/SpaceInvaders/bulletCollection.js"></script>
-    <script type="text/javascript" src="javascript/SpaceInvaders/player.js"></script>
-    <script type="text/javascript" src="javascript/SpaceInvaders/enemy.js"></script>
-    <script type="text/javascript" src="javascript/SpaceInvaders/enemiesGroupCollection.js"></script>
-    <script type="text/javascript" src="javascript/SpaceInvaders/enemiesCollection.js"></script>
-    <script type="text/javascript" src="javascript/SpaceInvaders/bullet.js"></script>
-    <script type="text/javascript" src="javascript/javascript.js"></script>
+
     <script type="text/javascript">
-        function aniFrame(){
+       $(function() {
             $("#frame01").delay(500).fadeIn(1000).delay(500).fadeOut(1000);
             $("#frame02").delay(3001).fadeIn(1000).delay(500).fadeOut(1000);
             $("#frame03").delay(5501).fadeIn(1000).delay(500).fadeOut(1000);
@@ -28,46 +12,12 @@
             $("#frame09").delay(24001).fadeIn(1000).delay(500).fadeOut(1000);
             $("#frame10").delay(26501).fadeIn(1000);
             $("#frame11").delay(27501).fadeIn(1000);
-        }
-
+		function onClick(){
+        	console.warn('click');
+        	$('#game').load('spaceInvadersLevel3.html');
+        };
+});
     </script>
-    <style type="text/css">
-        body{
-            background: #000000;
-        }
-        .b{
-            color:#ffffff;
-        }
-        .p{
-            color:#000000;
-        }
-        h1{
-            font-size: 1.2em;
-        }
-
-        a{
-            font-size: 1.2em;
-            color: #ffffff;
-            text-decoration: none;
-        }
-        #frame05{
-            position: absolute;
-            top: 0px;
-            left: 0px;
-        }
-        #frame06, #frame08{
-            position: absolute;
-            top: 250px;
-            left:20px;
-        }
-        #frame07{
-            position: absolute;
-            top: 250px;
-            left:0px;
-        }
-    </style>
-</head>
-<body bgcolor="#000000" onload="aniFrame()">
 <audio autoplay="autoplay">
         <source src="audio/bs01.ogg" type="audio/ogg" />
         <source src="audio/bs01.mp3" type="audio/mp3" />
@@ -82,7 +32,7 @@
 
 
     </center>
-    <pre id="frame05" style="display: none;">
+    <pre id="frame05" class="fd05" style="display: none;">
                                                                                       .                              ___
                                                                                                                   ,o88888
                                .                                                                               ,o8888888&#039;
@@ -147,7 +97,7 @@ _____....-//___|  \_\  |  |=====| |   |_|_\\      |___\\    .                 ..
 
 
 </pre>
-<pre id="frame06" style="display: none;">
+<pre id="frame06" class="fd06" style="display: none;">
                                                   --------------------------------------
                                                  [  Estamos à porta da batalha final    ]
                                                   --------------------------------------
@@ -156,7 +106,7 @@ _____....-//___|  \_\  |  |=====| |   |_|_\\      |___\\    .                 ..
 
 
 </pre>
-<pre id="frame07" style="display: none;">
+<pre id="frame07" class="fd07" style="display: none;">
 
    ---------------------------------------------
   [  Ainda bem, ando a precisar de férias       ]
@@ -165,7 +115,7 @@ _____....-//___|  \_\  |  |=====| |   |_|_\\      |___\\    .                 ..
                    \
 
 </pre>
-<pre id="frame08" style="display: none;">                                                                                                                  
+<pre id="frame08" class="fd08" style="display: none;">                                                                                                                  
                                                   --------------------------------------
                                                  [  Com o código desvendado é na boa!   ]
                                                   --------------------------------------
@@ -200,7 +150,7 @@ _____....-//___|  \_\  |  |=====| |   |_|_\\      |___\\    .                 ..
     </pre>
         </div>
         <div id="frame11" style="display: none;">
-            <a href="spaceInvaders.html">Jogar</a>
+            <a href="#" onclick="onClick();">Jogar</a>
         </div>
     </center>
 </div>
