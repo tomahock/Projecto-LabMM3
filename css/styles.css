@@ -1,0 +1,194 @@
+/* geral */
+
+ html, 
+    body {
+        height: 100%;
+        overflow: hidden;
+        background-color: black;
+        color: white;
+        font-size: 5px;
+        font-weight: bold;
+    }
+    #wrapper{
+		  margin:               0px auto;
+		  width:                930px;
+		  height:	100%;
+		  position:		relative;
+	}
+    .invisible { visibility: hidden; }
+        
+    .black { color: black; }
+    .white { color: white; }
+    .yellow { color: yellow;
+    		  font-size: 10px; }
+    
+    .a .modelB {display: none;}
+    .b .modelA {display: none;}
+
+
+
+/* cores caracteres */
+
+.p{
+    color:#000000;
+}
+
+.fd05{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+.fd06, .fd08{
+            position: absolute;
+            top: 250px;
+            left:20px;
+        }
+        .fd07{
+            position: absolute;
+            top: 250px;
+            left:0px;
+        }
+
+.v66{
+    color:#660000;
+}
+
+.c66{
+    color: #666666;
+}
+
+.r{
+    color: red;
+}
+
+.y{
+    color: yellow;
+}
+
+.b{
+    color:#ffffff;
+}
+        h1{
+            font-size:1em;
+        }
+
+        a{
+            font-size: 1em;
+            color: #ffffff;
+            text-decoration: none;
+        }
+#slide{
+	font-size: medium;
+	line-height: normal;
+	
+}
+#texto{
+    color: #ffffff;
+    position: absolute;
+    top:40%;
+    left:40%;
+}
+
+#cenario{
+    color: white;
+    font-size: medium;
+    line-height: normal;
+    font-weight: normal;
+}
+
+#mobexplode01{
+    position: absolute;
+    top:40%;
+    left: 30%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mobexplode02{
+    position: absolute;
+    top:40%;
+    left: 60%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mobexplode03{
+    position: absolute;
+    top:40%;
+    left: 70%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob01a, #mob01b{
+    position: absolute;
+    top:50%;
+    left: 30%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob02a, #mob02b{
+    position: absolute;
+    top:50%;
+    left: 40%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob03a, #mob03b{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob04{
+    position: absolute;
+    top:50%;
+    left: 60%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob05{
+    position: absolute;
+    top:50%;
+    left: 70%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob06{
+    position: absolute;
+    top:60%;
+    left: 30%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob07{
+    position: absolute;
+    top:60%;
+    left: 750px;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob08{
+    position: absolute;
+    top:60%;
+    left: 40%;
+    font-size: 50%;
+    line-height: 50%;
+}
+
+#mob09{
+    position: absolute;
+    top:60%;
+    left: 850px;
+    font-size: 50%;
+    line-height: 50%;
+}
+

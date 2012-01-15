@@ -32,19 +32,21 @@ SpaceInvaders.enemiesCollection = {
 		this._top = 20;
 		this._width = (SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS;
 		this._height = (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS;
-		this._enemyDownHandler = $.proxy(this.enemyDown, this);
+		this._collisionHandler = $.proxy(this.collision, this);
 		this._enemiesNumber = SpaceInvaders.config.ENEMY_COLUMNS * SpaceInvaders.config.ENEMY_ROWS;
 		console.log(this._enemiesNumber);
 		this.addEvent();
         return this;
     },
  	addEvent: function(){
-    	$(window).on("enemyDown", this._enemyDownHandler);
+    	$(window).on("collision", this._collisionHandler);
     },
     
-    enemyDown: function(){
-    	this._enemiesNumber -= 1; 
+    collision: function(evt, bulletId, enemy){
+    	this._enemiesNumber -= 1;
+    	this.remove.apply(this, enemy);
     },
+    
     getGroup : function(idx) {
     	var groupID = parseInt(idx,10);
         return this._groups[groupID];
@@ -64,13 +66,22 @@ SpaceInvaders.enemiesCollection = {
     		var groupP = parseInt(group,10);
     		return this._groups[groupP].remove(idx);
     	} else {
-    		return this._enemies.splice(idx,1).destroy();
+    		return this._enemies.splice(idx,1)[0].destroy();
     		
     	}
     },
     
+    removeById : function(id){
+    	var i = this._enemies.length -1;
+    	for(i; i>=0; i--){
+    		if(this.get(i)._id === id){
+    			this.remove(i);
+    		}
+    	}	
+    },
+    
     removeGroup : function(idx){
-    	this._group.splice(idx, 1).dispose();
+    	this._group.splice(idx, 1)[0].dispose();
     	return this;
     },
     

@@ -6,6 +6,7 @@ SpaceInvaders.bullet = {
     	this._isMoving = false;
     	this._bulletSpeed = 1;
     	this._colided = false;
+    	this._id = new Date().getTime(); // UNIX timestamp
     	return this;
     },
     
@@ -47,7 +48,7 @@ SpaceInvaders.bullet = {
 			complete: $.proxy(function(){
 				this._isMoving=false;
 				window.clearInterval(this._interval);
-				this.remove();
+				$(window).trigger('topStageCollision', [this._id]);
 			},this)
 		});
 		
@@ -76,8 +77,8 @@ SpaceInvaders.bullet = {
 								enemyIDe = j + 'e';
 							if(SpaceInvaders.enemiesCollection.isInside(this, groupIDg, enemyIDe)){
 								var enemy = SpaceInvaders.enemiesCollection.get(enemyID,groupIDg);
-								SpaceInvaders.enemiesCollection.remove(enemyID,groupIDg);
-								this.colide(enemy);
+								//SpaceInvaders.enemiesCollection.remove(enemyID,groupIDg);
+								this.colide([enemyID, groupIDg]);
 								return;
 							}
 						}
@@ -96,11 +97,11 @@ SpaceInvaders.bullet = {
         this._colided = true;
         this._$html.stop(true, false);
         console.warn(SpaceInvaders.enemiesCollection.getEnemyNumber());
-        this.remove();
+        this.remove(enemy);
     },
-    remove : function(){
+    remove : function(enemy){
        	//window.trigger('collision');
-    	this.dispose();
+    	$(window).trigger('collision', [this._id, enemy]);
    	},
     dispose: function() {
     	if (this._interval) { window.clearInterval(this._interval); }

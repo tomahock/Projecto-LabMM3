@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="https://raw.github.com/necolas/normalize.css/master/normalize.css" type="text/css" media="screen" charset="utf-8">
-  <link href="css/style.css" rel="stylesheet" type="text/css" media="screen" /> 
+  <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" /> 
   <title>SpaceInvaders - LEVEL 1</title>
 
 </head>
@@ -41,7 +41,7 @@
     // Vamos carregar as naves e guarda-las
     $.getJSON('assets/spaceships.json', function(data) {
         SpaceInvaders.spaceshipsModels = data;
-        SpaceInvaders.init('boss', 'nivel1');
+        SpaceInvaders.init(1);
     });
     
     // Corre quando se fecha a janela ou se faz refresh

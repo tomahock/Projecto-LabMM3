@@ -3,7 +3,7 @@ SpaceInvaders.enemy = {
         this._model = model;
         this._type = type;
         this._destroyed = false;
-
+        this._id = new Date().getTime();
     },
     
     getType: function() {
@@ -117,8 +117,10 @@ SpaceInvaders.enemy = {
     // o metodo dispose é para apagarmos inimigos da memoria
     dispose: function() {
     	this.stopDance();
-    	this._$html.remove();
-    	this._$html = null;
+    	if(this._$html){
+    		this._$html.remove();
+    		this._$html = null;
+    	}
     	this._model = null;
     	this._destroyed = null;
     }

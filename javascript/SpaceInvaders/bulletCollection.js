@@ -2,6 +2,7 @@ SpaceInvaders.bulletCollection = {
     init: function() {
         this._bullets = [];
         this._addHandler = $.proxy(this.add, this);
+        this._removeByIdHandler = $.proxy(this.removeById, this);
         this.addEvent();
         return this;
     },
@@ -20,7 +21,20 @@ SpaceInvaders.bulletCollection = {
     },
     
     remove: function(idx) {
-    	this._bullets.splice(idx, 1).dispose();
+    	this._bullets.splice(idx, 1)[0].dispose();
+    	return this;
+    },
+    
+    removeById: function(evt, id){
+    	if(this._bullets.length){
+    		var i = this._bullets.length -1;
+    		for(i; i>=0; i--){
+    			if(this.get(i)._id === id){
+    				this.remove(i);
+    				return;
+    			}
+    		}
+    	}
     	return this;
     },
     
@@ -35,10 +49,14 @@ SpaceInvaders.bulletCollection = {
     
     addEvent : function(){
     	$(window).on("onFire", this._addHandler);
+    	$(window).on("collision", this._removeByIdHandler);
+    	$(window).on("topStageCollision", this._removeByIdHandler);
     },
     
     removeEvent : function(){
-    	$(window).off('onFire', this._addHandler)
+    	$(window).off('onFire', this._addHandler);
+    	$(window).off("collision", this._removeByIdHandler);
+    	$(window).off("topStageCollision", this._removeByIdHandler);
     },
     dispose : function(){
     	this.removeEvent();
@@ -46,4 +64,3 @@ SpaceInvaders.bulletCollection = {
     	this._bullets = null;
     }
 };
-
