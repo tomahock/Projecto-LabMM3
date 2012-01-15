@@ -88,7 +88,7 @@ var SpaceInvaders = {
         this.stage.append(this.player.render());
         this.enemiesCollection.animationStart();
         var level = 'SpaceInvaders.spaceshipsModels.' + this._LEVEL_TYPE;
-		this.enemiesCollection.dance(SpaceInvaders.spaceshipsModels.nivel1);
+		this.enemiesCollection.dance(SpaceInvaders.spaceshipsModels.nivel2);
 		this.addEvent();
         return this;
     },
