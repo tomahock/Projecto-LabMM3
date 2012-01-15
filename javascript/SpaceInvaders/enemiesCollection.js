@@ -32,9 +32,19 @@ SpaceInvaders.enemiesCollection = {
 		this._top = 20;
 		this._width = (SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS;
 		this._height = (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS;
+		this._enemyDownHandler = $.proxy(this.enemyDown, this);
+		this._enemiesNumber = SpaceInvaders.config.ENEMY_COLUMNS * SpaceInvaders.config.ENEMY_ROWS;
+		console.log(this._enemiesNumber);
+		this.addEvent();
         return this;
     },
-
+ 	addEvent: function(){
+    	$(window).on("enemyDown", this._enemyDownHandler);
+    },
+    
+    enemyDown: function(){
+    	this._enemiesNumber -= 1; 
+    },
     getGroup : function(idx) {
     	var groupID = parseInt(idx,10);
         return this._groups[groupID];
@@ -52,10 +62,10 @@ SpaceInvaders.enemiesCollection = {
     remove : function(idx, group){
     	if (group) {
     		var groupP = parseInt(group,10);
-    		console.warn(groupP);
     		return this._groups[groupP].remove(idx);
     	} else {
     		return this._enemies.splice(idx,1).destroy();
+    		
     	}
     },
     
@@ -104,6 +114,9 @@ SpaceInvaders.enemiesCollection = {
 	getLength: function(){
 		return this._groups.length-1;
 	},
+	getEnemyNumber: function(){
+		return this._enemiesNumber;
+	},	
 	getLeft : function(){
 		return this._left;
 	},
@@ -217,7 +230,9 @@ SpaceInvaders.enemiesCollection = {
     		var mov = nivel.shift();
     		
     		if(mov){ this.move(mov,5); }
-    		else { this.stopDance(); }
+    		else { 
+    			$(window).trigger('gameOver');
+    			this.stopDance(); }
   		}, this), 1000);
     },
     
@@ -239,5 +254,6 @@ SpaceInvaders.enemiesCollection = {
         this._top = null;
         this._width = null;
         this._height = null;
+        this._enemyDownHandler = null;
     }
 };

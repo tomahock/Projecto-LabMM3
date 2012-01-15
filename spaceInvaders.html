@@ -4,35 +4,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="https://raw.github.com/necolas/normalize.css/master/normalize.css" type="text/css" media="screen" charset="utf-8">
-  <style>
-    html, 
-    body {
-        height: 100%;
-        overflow: hidden;
-        background-color: black;
-        color: white;
-        font-size: 5px;
-        line-height: 0;
-        font-weight: bold;
-    }
-    #wrapper{
-		  margin:               0px auto;
-		  width:                930px;
-		  height:	100%;
-		  position:		relative;
-	}
-    .invisible { visibility: hidden; }
-        
-    .black { color: black; }
-    .white { color: white; }
-    .yellow { color: yellow;
-    		  font-size: 10px; }
-    
-    .a .modelB {display: none;}
-    .b .modelA {display: none;}
-    </style>
-    
-  <title>Brevemente</title>
+  <link href="css/style.css" rel="stylesheet" type="text/css" media="screen" /> 
+  <title>SpaceInvaders - LEVEL 1</title>
 
 </head>
 <body>
@@ -46,7 +19,35 @@
     <script type="text/javascript" src="javascript/SpaceInvaders/enemiesGroupCollection.js"></script>
     <script type="text/javascript" src="javascript/SpaceInvaders/enemiesCollection.js"></script>
     <script type="text/javascript" src="javascript/SpaceInvaders/bullet.js"></script>
-    <script type="text/javascript" src="javascript/javascript.js"></script>
+    <script type="text/javascript">
+    	$(function() {
+
+    // O jQuery falha em arquitectura de código
+    // Esta simples funcao, permite de alguma forma
+    // colmatar uma falha simples na herança em js.
+    // é necessário verificar se o browser ja tem
+    // a Object.create (ES5), pois essa é a função correcta
+    // para fazer isto.
+    $.beget = function(o) {
+        function F() {} //jslint warning...
+        if (Object.create) {
+            return Object.create(o);
+        } else {
+            F.prototype = o;
+            return new F();
+        }
+    };
+
+    // Vamos carregar as naves e guarda-las
+    $.getJSON('assets/spaceships.json', function(data) {
+        SpaceInvaders.spaceshipsModels = data;
+        SpaceInvaders.init('boss', 'nivel1');
+    });
+    
+    // Corre quando se fecha a janela ou se faz refresh
+	$(window).on('unload', SpaceInvaders.shutdown);
+});
+    </script>
  
     <div id="wrapper"></div>
 </body>

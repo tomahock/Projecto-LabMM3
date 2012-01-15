@@ -1,8 +1,30 @@
 /* geral */
 
- body{
-     background: #000000;
-}
+ html, 
+    body {
+        height: 100%;
+        overflow: hidden;
+        background-color: black;
+        color: white;
+        font-size: 5px;
+        line-height: 0;
+        font-weight: bold;
+    }
+    #wrapper{
+		  margin:               0px auto;
+		  width:                930px;
+		  height:	100%;
+		  position:		relative;
+	}
+    .invisible { visibility: hidden; }
+        
+    .black { color: black; }
+    .white { color: white; }
+    .yellow { color: yellow;
+    		  font-size: 10px; }
+    
+    .a .modelB {display: none;}
+    .b .modelA {display: none;}
 
 
 

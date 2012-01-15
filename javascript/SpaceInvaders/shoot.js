@@ -8,10 +8,7 @@ SpaceInvaders.bullet = {
     	return this;
     },
     render: function(){
-    	console.warn('init render');
-    	console.warn(this);
     	if (!this._$html) {
-    		console.warn('bulletTop' + this._left);
     		this._$html = $('<div class="bullet"><p><span class="yellow">I</span></p></div>').css({
                 'position': 'absolute',
                 'left' : this._left,
@@ -23,7 +20,6 @@ SpaceInvaders.bullet = {
     getLeft: function(){},
     getTop:	function(){},
 	move: function(){
-			console.warn(this);
 			this._$html.animate({'top' : '0'
 			}, '1000');
 	},

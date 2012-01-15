@@ -1,6 +1,5 @@
 SpaceInvaders.enemiesGroupCollection = {
     init: function() {
-    	//console.warn('init group');
         return this;
     },
     
@@ -85,10 +84,9 @@ SpaceInvaders.enemiesGroupCollection = {
     },
     
     remove: function(idx) {
-    	console.warn('idx: ' + idx);
     	var enemy = this.get(idx);
     	enemy.destroy();
-		console.warn(this);
+		$(window).trigger('enemyDown');
     	this._enemies.splice(idx,1);
     	
     },

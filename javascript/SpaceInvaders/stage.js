@@ -2,7 +2,7 @@ SpaceInvaders.stage = {
     init: function(width, height) {
         this._width = width || '100%';
         this._height = height || '100%';
-	this._addHandler = $.proxy(this.fire, this);
+	this._fireHandler = $.proxy(this.fire, this);
 	this.addEvent();
         return this;
     },
@@ -31,14 +31,14 @@ SpaceInvaders.stage = {
         return this._$html;
     },
     addEvent : function(){
-    	$(window).on("onFire", this._addHandler);
-console.warn('addEvent()');
+    	$(window).on("onFire", this._fireHandler);
     },
-fire : function(){
-console.warn('fire()');
-    	var aud01 = $("#aud01"	)[0];
-aud01.pause();
+	fire : function(){
+    	var aud01 = $("#aud01")[0];
+		aud01.pause();
 		aud01.play();
     },
-    dispose: function() {}
+    dispose: function() {
+    	$(window).off("onFire");
+    }
 };
