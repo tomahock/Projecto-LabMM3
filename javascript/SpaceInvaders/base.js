@@ -91,7 +91,6 @@ var SpaceInvaders = {
             this.stage.append(this.enemiesCollection.render());
             this.stage.append(this.player.render());
             this.enemiesCollection.animationStart();
-            console.warn(this.spaceshipsModels[this.config.LEVEL_TYPE + this._level]);
             this.enemiesCollection.dance(this.spaceshipsModels[this.config.LEVEL_TYPE + this._level]);
             this.addEvent();
 
@@ -146,7 +145,7 @@ var SpaceInvaders = {
     },
     
     gameOver : function(){
-    	alert("Luke.. I am Your Father");
+    	alert("Luke.. I'm Your Father");
     	this.shutdown();
     },
     enemyDown : function(){
@@ -161,7 +160,5 @@ var SpaceInvaders = {
     	this.bulletCollection.dispose();
     	this.player.dispose();
     	this.stage.dispose();
-    	this.spaceshipsModels = [];
-    	this.spaceshipsModels = null;
     }
 };

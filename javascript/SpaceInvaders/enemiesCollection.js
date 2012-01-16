@@ -256,7 +256,7 @@ SpaceInvaders.enemiesCollection = {
     dance: function(nivel) {
         this._danceInterval = window.setInterval($.proxy(function() {
             var mov = nivel.shift();
-		console.warn(nivel.length);
+
             if (mov) {
                 this.move(mov, 5);
             }
