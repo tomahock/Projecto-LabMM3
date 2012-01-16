@@ -37,9 +37,7 @@ var SpaceInvaders = {
      * @returns {SpaceInvaders} this
      */
 
-    init: function(enemyType, levelType){
-    	this._ENEMY_TYPE = enemyType;
-    	this._LEVEL_TYPE = levelType; 
+    init: function(levelType){
     	this._gameOverHandler = $.proxy(this.gameOver, this);
     	this._enemyDownHandler = $.proxy(this.enemyDown, this);
     	this.make(levelType);
@@ -93,6 +91,7 @@ var SpaceInvaders = {
             this.stage.append(this.enemiesCollection.render());
             this.stage.append(this.player.render());
             this.enemiesCollection.animationStart();
+            console.warn(this.spaceshipsModels[this.config.LEVEL_TYPE + this._level]);
             this.enemiesCollection.dance(this.spaceshipsModels[this.config.LEVEL_TYPE + this._level]);
             this.addEvent();
 
@@ -147,7 +146,7 @@ var SpaceInvaders = {
     },
     
     gameOver : function(){
-    	alert("Luke.. I'm Your Father");
+    	alert("Luke.. I am Your Father");
     	this.shutdown();
     },
     enemyDown : function(){
@@ -162,5 +161,7 @@ var SpaceInvaders = {
     	this.bulletCollection.dispose();
     	this.player.dispose();
     	this.stage.dispose();
+    	this.spaceshipsModels = [];
+    	this.spaceshipsModels = null;
     }
 };

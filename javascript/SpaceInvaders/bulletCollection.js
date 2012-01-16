@@ -26,7 +26,7 @@ SpaceInvaders.bulletCollection = {
     },
     
     removeById: function(evt, id){
-    	if(this._bullets.length){
+    	if(this._bullets){
     		var i = this._bullets.length -1;
     		for(i; i>=0; i--){
     			if(this.get(i)._id === id){
@@ -39,11 +39,13 @@ SpaceInvaders.bulletCollection = {
     },
     
     removeAll : function(){
-    	var i = this._bullets.length - 1;
-    	for(i; i>=0; i-=1){
-    		this.get(i).dispose();
-    	}
-    	this._bullets = [];
+        if (this._bullets){
+        	var i = this._bullets.length - 1;
+        	for(i; i>=0; i-=1){
+        		this.get(i).dispose();
+        	}
+        	this._bullets = [];
+        }
     	return this;
     },
     

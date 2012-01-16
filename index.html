@@ -7,6 +7,17 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css" />
     <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" /> 
     <script type="text/javascript" src="libs/jquery.min.js"></script>
+    <script>
+    	function onClickL1(){
+    		$('#game').load('spaceInvadersLevel1.html');
+    	}
+    	function onClickL2(){
+    		$('#game').load('spaceInvadersLevel2.html');
+    	}
+    	function onClickL3(){
+    		$('#game').load('spaceInvadersLevel3.html');
+    	}
+    </script>
 
 </head>
 
@@ -26,10 +37,6 @@
             $("#intro09").delay(21501).fadeIn(1000);
             $("#intro10").delay(23001).fadeIn(1000);
         }
-        function onClick(){
-        	console.warn('click');
-        	$('#game').load('spaceInvadersLevel1.html');
-        };
     </script>
 	    <audio autoplay="autoplay">
 	        <source src="audio/bs01.ogg" type="audio/ogg" />
@@ -41,7 +48,7 @@
 	                    &nbsp;
 	                </div>
 	                <div id="intro01" style="display:none;">
-	                    <h1 class="b">A muitos milénios atrás...</h1>
+	                    <h1 class="b">Há muitos milénios atrás...</h1>
 	                </div>
 	                <div id="intro02" style="display:none;">
 	                    <h1 class="b">...num universo distante...</h1>
@@ -105,7 +112,11 @@
 	                    </pre>
 	                </div>
 	                <div id="intro10" style="display: none;">
-	                   <a id="jogar" href="#" onClick="onClick()">Jogar</a>
+	                	<p>Instruções: </p>
+	                	<p><- Esquerda</p>
+	                	<p>-> Direita</p>
+	                	<p>Espaço - Disparar</p>
+	                   <a id="jogar" href="#" onClick="onClickL1()">Jogar</a>
 	                </div>
 	
 	            </div>

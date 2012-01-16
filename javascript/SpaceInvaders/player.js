@@ -27,7 +27,9 @@ SpaceInvaders.player = {
     	return this;
     },
     getBulletsLength: function(){
-    	return this._bullets.length;
+        if (this._bullets){
+    	    return this._bullets.length;
+        }
     },
     getTop: function(){
     	return this._top;

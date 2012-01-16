@@ -40,7 +40,10 @@ SpaceInvaders.stage = {
     },
     dispose: function() {
     	$(window).off("onFire");
-    	this._$html.remove();
-    	this._$html = null;
+        if (this._$html){
+            this._$html.remove();
+            this._$html = null;
+        }
+
     }
 };

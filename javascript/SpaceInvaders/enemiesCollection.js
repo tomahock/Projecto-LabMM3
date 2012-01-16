@@ -25,120 +25,138 @@ SpaceInvaders.enemiesCollection = {
      * @public
      * @returns {SpaceInvaders.enemiesCollection} this
      */
-    init : function() {
+    init: function() {
         this._groups = [];
         this._enemies = [];
-		this._left = (SpaceInvaders.config.STAGE_WIDTH/2)-(((SpaceInvaders.config.ENEMY_WIDTH+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN)*SpaceInvaders.config.ENEMY_COLUMNS)/2);
-		this._top = 20;
-		this._width = (SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS;
-		this._height = (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS;
-		this._collisionHandler = $.proxy(this.collision, this);
-		this._enemiesNumber = SpaceInvaders.config.ENEMY_COLUMNS * SpaceInvaders.config.ENEMY_ROWS;
-		this.addEvent();
+        this._left = (SpaceInvaders.config.STAGE_WIDTH / 2) - (((SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS) / 2);
+        this._top = 20;
+        this._width = (SpaceInvaders.config.ENEMY_WIDTH + SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.config.ENEMY_COLUMNS;
+        this._height = (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN) * SpaceInvaders.config.ENEMY_ROWS;
+        this._collisionHandler = $.proxy(this.collision, this);
+        this._enemiesNumber = SpaceInvaders.config.ENEMY_COLUMNS * SpaceInvaders.config.ENEMY_ROWS;
+        this.addEvent();
         return this;
     },
- 	addEvent: function(){
-    	$(window).on("collision", this._collisionHandler);
+    addEvent: function() {
+        $(window).on("collision", this._collisionHandler);
     },
-    
-    collision: function(evt, bulletId, enemy){
-    	this._enemiesNumber -= 1;
-    	this.remove.apply(this, enemy);
+
+    collision: function(evt, bulletId, enemy) {
+        this._enemiesNumber -= 1;
+        this.remove.apply(this, enemy);
     },
-    
-    getGroup : function(idx) {
-    	var groupID = parseInt(idx,10);
+
+    getGroup: function(idx) {
+        var groupID = parseInt(idx, 10);
         return this._groups[groupID];
     },
 
-    get : function(idx, group) {
-    	var groupID = parseInt(group);
+    get: function(idx, group) {
+        var groupID = parseInt(group, 10);
         if (group) {
             return this._groups[groupID].get(idx);
         } else {
             return this._enemies[idx];
         }
     },
-    
-    remove : function(idx, group){
-    	if (group) {
-    		var groupP = parseInt(group,10);
-    		return this._groups[groupP].remove(idx);
-    	} else {
-    		return this._enemies.splice(idx,1)[0].destroy();
-    		
-    	}
+
+    remove: function(idx, group) {
+        if (group) {
+            var groupP = parseInt(group, 10);
+            this._groups[groupP].remove(idx);
+            if (!this._groups[groupP].size()) {
+                this.removeGroup(groupP);
+            }
+        } else {
+            return this._enemies.splice(idx, 1)[0].destroy();
+
+        }
     },
-    
-    removeById : function(id){
-    	var i = this._enemies.length -1;
-    	for(i; i>=0; i--){
-    		if(this.get(i)._id === id){
-    			this.remove(i);
-    		}
-    	}	
+
+    removeById: function(id) {
+        var i = this._enemies.length - 1;
+        for (i; i >= 0; i--) {
+            if (this.get(i)._id === id) {
+                this.remove(i);
+            }
+        }
     },
-    
-    removeGroup : function(idx){
-    	this._group.splice(idx, 1)[0].dispose();
-    	return this;
+
+    removeGroup: function(idx) {
+        this._groups.splice(idx, 1)[0].dispose();
+        return this;
     },
-    
-    removeAll : function(){
-    	var i=0;
-    	
-    	if(this.getLength()){
-    		i = this._groups.length - 1;
-    		for(i; i >= 0; i -= 1){this.getGroup(i).dispose();}
-    		this._group = [];
-    	}else{
-    		i = this._enemies.length - 1;
-    		for(i; i>=0; i-=1){ this.get(i).dispose();}
-    		this._enemies = [];
-    	}
-    	
-    	return this;
+
+    removeAll: function() {
+        var i = 0;
+
+        if (this.getLength()) {
+            i = this._groups.length - 1;
+            for (i; i >= 0; i -= 1) {
+                this.getGroup(i).dispose();
+            }
+            this._group = [];
+        } else {
+            if (this._enemies){
+                i = this._enemies.length - 1;
+                for (i; i >= 0; i -= 1) {
+                    this.get(i).dispose();
+                }
+                this._enemies = [];
+            }
+        }
+
+        return this;
     },
-    
-	isInside: function(bullet, groupIDg, enemyIDe){
-		var bulletLeft = bullet.getLeft(),
-			bulletTop = bullet.getTop(),
-			groupID = parseInt(groupIDg,10),
-			enemyID = parseInt(enemyIDe,10);
-		if(!groupIDg && !enemyIDe){
-			return(bulletLeft >= 0 && bulletLeft <= (this.getLeft()+this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop()+this._height));
-		}else if(groupIDg && !enemyIDe){
-			var group = this.getGroup(groupIDg),
-				firstEnemy = this.get(0,groupID),
-				_temp = parseInt(group.getTop(),10)+parseInt(this._top,10);
-			return (bulletLeft >= this._left && bulletLeft <= (this._left+this._width) && bulletTop >= _temp && bulletTop <= _temp+(SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN));
-		}else if(groupIDg && enemyIDe){
-			var enemy = this.get(enemyID, groupIDg),
-				group = this.getGroup(groupIDg),
-				_temp = parseInt(group.getTop(),10)+parseInt(this._top,10);
-			return (bulletLeft >= this._left + parseInt(enemy.getLeft(),10) && bulletLeft <= (this._left + parseInt(enemy.getLeft(),10)+SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= _temp && bulletTop <= _temp +SpaceInvaders.config.ENEMY_HEIGHT);
-		}else{
-			return false;
-		}
-	},
-	getLength: function(){
-		return this._groups.length-1;
-	},
-	getEnemyNumber: function(){
-		return this._enemiesNumber;
-	},	
-	getLeft : function(){
-		return this._left;
-	},
-	getTop : function(){
-		return this._top;
-	},
-	getWidth : function(){
-		return this._width;
-	},
-	getHeight : function(){
-		return this._heigth;
-	},
+
+    isInside: function(bullet, groupIDg, enemyIDe) {
+        var bulletLeft = bullet.getLeft(),
+            bulletTop = bullet.getTop(),
+            groupID = parseInt(groupIDg, 10),
+            enemyID = parseInt(enemyIDe, 10),
+            group, _temp;
+            
+        if (!groupIDg && !enemyIDe) {
+            return (bulletLeft >= 0 && bulletLeft <= (this.getLeft() + this._width) && bulletTop >= this.getTop() && bulletTop <= (this.getTop() + this._height));
+        } else if (groupIDg && !enemyIDe) {
+            group = this.getGroup(groupIDg);
+            
+            var firstEnemy = this.get(0, groupID);
+            
+            _temp = parseInt(group.getTop(), 10) + parseInt(this._top, 10);
+            
+            return (bulletLeft >= this._left && bulletLeft <= (this._left + this._width) && bulletTop >= _temp && bulletTop <= _temp + (SpaceInvaders.config.ENEMY_HEIGHT + SpaceInvaders.config.ENEMY_HORIZONTAL_MARGIN));
+        } else if (groupIDg && enemyIDe) {
+            var enemy = this.get(enemyID, groupIDg);
+            
+            group = this.getGroup(groupIDg);
+            _temp = parseInt(group.getTop(), 10) + parseInt(this._top, 10);
+                
+            return (bulletLeft >= this._left + parseInt(enemy.getLeft(), 10) && bulletLeft <= (this._left + parseInt(enemy.getLeft(), 10) + SpaceInvaders.config.ENEMY_WIDTH) && bulletTop >= _temp && bulletTop <= _temp + SpaceInvaders.config.ENEMY_HEIGHT);
+        } else {
+            return false;
+        }
+    },
+    getLength: function() {
+        if (this._groups){
+            return this._groups.length - 1;
+        }
+    },
+    getEnemyNumber: function() {
+        return this._enemiesNumber;
+    },
+    getLeft: function() {
+        return this._left;
+    },
+    getTop: function() {
+        return this._top;
+    },
+    getWidth: function() {
+        return this._width;
+    },
+    getHeight: function() {
+        return this._heigth;
+    },
     add: function(enemy) {
         this._enemies.push(enemy);
         return this;
@@ -209,55 +227,60 @@ SpaceInvaders.enemiesCollection = {
     },
 
     move: function(direction, amount) {
-    	var moveDirection = {
-			top : function(amount){
-				this._$html.css('top', parseInt(this._$html.css('top'),10) - amount);
-				this._top -= amount;
-			},
-			left : function(amount){
-				this._$html.css('left', parseInt(this._$html.css('left'),10) - amount);
-				this._left -= amount;
-			},
-			right : function(amount){
-				this._$html.css('left', parseInt(this._$html.css('left'),10) + amount);
-				this._left += amount;
-			},
-			bottom : function(amount){
-				this._$html.css('top', parseInt(this._$html.css('top'),10) + amount);
-				this._top += amount;
-			}
-		}
-		
-		if(moveDirection[direction]){
-			moveDirection[direction].call(this, amount);
-		}
-		
-		return this;
+        var moveDirection = {
+            top: function(amount) {
+                this._$html.css('top', parseInt(this._$html.css('top'), 10) - amount);
+                this._top -= amount;
+            },
+            left: function(amount) {
+                this._$html.css('left', parseInt(this._$html.css('left'), 10) - amount);
+                this._left -= amount;
+            },
+            right: function(amount) {
+                this._$html.css('left', parseInt(this._$html.css('left'), 10) + amount);
+                this._left += amount;
+            },
+            bottom: function(amount) {
+                this._$html.css('top', parseInt(this._$html.css('top'), 10) + amount);
+                this._top += amount;
+            }
+        };
+
+        if (moveDirection[direction]) {
+            moveDirection[direction].call(this, amount);
+        }
+
+        return this;
     },
-    
-    dance: function(nivel){
-    	this._danceInterval = window.setInterval($.proxy(function(){
-    		var mov = nivel.shift();
-    		
-    		if(mov){ this.move(mov,5); }
-    		else { 
-    			$(window).trigger('gameOver');
-    			this.stopDance(); }
-  		}, this), 1000);
+
+    dance: function(nivel) {
+        this._danceInterval = window.setInterval($.proxy(function() {
+            var mov = nivel.shift();
+		console.warn(nivel.length);
+            if (mov) {
+                this.move(mov, 5);
+            }
+            else {
+                $(window).trigger('gameOver');
+                this.stopDance();
+            }
+        }, this), 1000);
     },
-    
-    stopDance : function(){
-    	if(this._danceInterval){
-    		window.clearInterval(this._danceInterval);
-    	}	
+
+    stopDance: function() {
+        if (this._danceInterval) {
+            window.clearInterval(this._danceInterval);
+        }
     },
-    
+
     dispose: function() {
         this.animationStop();
         this.stopDance();
         this.removeAll();
-        this._$html.remove();
-        this._$html = null;
+        if (this._$html){
+            this._$html.remove();
+            this._$html = null;
+        }
         this._groups = null;
         this._enemies = null;
         this._left = null;

@@ -1,5 +1,8 @@
-
-    <script type="text/javascript">
+<audio autoplay="autoplay">
+        <source src="audio/bs01.ogg" type="audio/ogg" />
+        <source src="audio/bs01.mp3" type="audio/mp3" />
+</audio>
+<script type="text/javascript">
        $(function() {
             $("#frame01").delay(500).fadeIn(1000).delay(500).fadeOut(1000);
             $("#frame02").delay(3001).fadeIn(1000).delay(500).fadeOut(1000);
@@ -12,16 +15,8 @@
             $("#frame09").delay(24001).fadeIn(1000).delay(500).fadeOut(1000);
             $("#frame10").delay(26501).fadeIn(1000);
             $("#frame11").delay(27501).fadeIn(1000);
-		function onClick(){
-        	console.warn('click');
-        	$('#game').load('spaceInvadersLevel3.html');
-        };
 });
-    </script>
-<audio autoplay="autoplay">
-        <source src="audio/bs01.ogg" type="audio/ogg" />
-        <source src="audio/bs01.mp3" type="audio/mp3" />
-    </audio>
+</script>
 <div id="cenario" class="b">
     <center>
         <div id="top" style="height: 100px;">&nbsp;</div>
@@ -150,7 +145,7 @@ _____....-//___|  \_\  |  |=====| |   |_|_\\      |___\\    .                 ..
     </pre>
         </div>
         <div id="frame11" style="display: none;">
-            <a href="#" onclick="onClick();">Jogar</a>
+            <a href="#" onclick="onClickL3();">Jogar</a>
         </div>
     </center>
 </div>

@@ -109,6 +109,7 @@ SpaceInvaders.enemiesGroupCollection = {
     },
     
     size: function() {
+        console.log("enemiesGroupCollection#size")
         return this._enemies.length;
     }
 };

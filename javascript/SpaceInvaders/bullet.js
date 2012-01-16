@@ -2,7 +2,7 @@ SpaceInvaders.bullet = {
 	
     init: function() {
     	this._left = SpaceInvaders.player.getLeft()+(SpaceInvaders.config.PLAYER_WIDTH/2);
-    	this._top = ((SpaceInvaders.config.ENEMY_HEIGHT+SpaceInvaders.config.ENEMY_VERTICAL_MARGIN) * SpaceInvaders.enemiesCollection.getLength()) + 150;
+    	this._top = SpaceInvaders.player.getTop();
     	this._isMoving = false;
     	this._bulletSpeed = 1;
     	this._colided = false;
@@ -105,8 +105,10 @@ SpaceInvaders.bullet = {
     	if (this._interval) { window.clearInterval(this._interval); }
     	this._interval = null;
         this.removeEvent();
-        this._$html.remove();
-        this._$html = null;
+        if (this._$html){
+            this._$html.remove();
+            this._$html = null;
+        }
         this._left = null;
         this._top = null;
         this._isMoving = null;
