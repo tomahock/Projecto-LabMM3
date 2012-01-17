@@ -101,7 +101,7 @@ SpaceInvaders.bullet = {
     remove : function(enemy){
     	$(window).trigger('collision', [this._id, enemy]);
    	},
-    dispose: function() {
+    discard: function() {
     	if (this._interval) { window.clearInterval(this._interval); }
     	this._interval = null;
         this.removeEvent();

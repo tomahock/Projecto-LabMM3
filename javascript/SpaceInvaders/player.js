@@ -143,7 +143,7 @@ SpaceInvaders.player = {
     fire: function() {},
     html: function() {},
     destroy: function() {},
-    dispose: function() {
+    discard: function() {
     	this.removeEvent();
     	this._$html.stop().remove();
     	

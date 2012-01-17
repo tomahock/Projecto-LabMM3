@@ -41,7 +41,6 @@ var SpaceInvaders = {
     	this._gameOverHandler = $.proxy(this.gameOver, this);
     	this._enemyDownHandler = $.proxy(this.enemyDown, this);
     	this.make(levelType);
-    	console.warn('init spaceinvaders');
     },
     
 	make: function(level) {
@@ -145,8 +144,9 @@ var SpaceInvaders = {
     },
     
     gameOver : function(){
-    	alert("Luke.. I'm Your Father");
+		alert('Game Over... You Lose');
     	this.shutdown();
+    	(window).location = 'index.html';
     },
     enemyDown : function(){
     	if(!SpaceInvaders.enemiesCollection.getEnemyNumber()){
@@ -156,9 +156,9 @@ var SpaceInvaders = {
     },
     shutdown: function() {
     	this.removeEvent();
-    	this.enemiesCollection.dispose();
-    	this.bulletCollection.dispose();
-    	this.player.dispose();
-    	this.stage.dispose();
+    	this.enemiesCollection.discard();
+    	this.bulletCollection.discard();
+    	this.player.discard();
+    	this.stage.discard();
     }
 };

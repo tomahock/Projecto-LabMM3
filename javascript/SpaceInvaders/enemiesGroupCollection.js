@@ -94,13 +94,13 @@ SpaceInvaders.enemiesGroupCollection = {
     removeAll : function(){
     	var i = this._enemies.length - 1;
     	for(i; i>=0;i-=1){
-    		this.get(i).dispose();
+    		this.get(i).discard();
     	}
     	this.enemies = [];
     	return this;
     },
     
-    dispose: function() {
+    discard: function() {
     	this.stopDance().removeAll();
     	
     	this._$html.remove();
@@ -109,7 +109,6 @@ SpaceInvaders.enemiesGroupCollection = {
     },
     
     size: function() {
-        console.log("enemiesGroupCollection#size")
         return this._enemies.length;
     }
 };

@@ -30,7 +30,6 @@
     // Vamos carregar as naves e guarda-las
     $.getJSON('assets/spaceships.json', function(data) {
         SpaceInvaders.spaceshipsModels = data;
-        console.warn('init level 1');
         SpaceInvaders.init(1);
     });
     

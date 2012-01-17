@@ -83,7 +83,7 @@ SpaceInvaders.enemiesCollection = {
     },
 
     removeGroup: function(idx) {
-        this._groups.splice(idx, 1)[0].dispose();
+        this._groups.splice(idx, 1)[0].discard();
         return this;
     },
 
@@ -93,14 +93,14 @@ SpaceInvaders.enemiesCollection = {
         if (this.getLength()) {
             i = this._groups.length - 1;
             for (i; i >= 0; i -= 1) {
-                this.getGroup(i).dispose();
+                this.getGroup(i).discard();
             }
             this._group = [];
         } else {
             if (this._enemies){
                 i = this._enemies.length - 1;
                 for (i; i >= 0; i -= 1) {
-                    this.get(i).dispose();
+                    this.get(i).discard();
                 }
                 this._enemies = [];
             }
@@ -273,7 +273,7 @@ SpaceInvaders.enemiesCollection = {
         }
     },
 
-    dispose: function() {
+    discard: function() {
         this.animationStop();
         this.stopDance();
         this.removeAll();

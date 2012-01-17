@@ -64,7 +64,7 @@ SpaceInvaders.enemy = {
     destroy: function() {
         this._$html.remove();
         this._destroyed = true;
-        this.dispose();
+        this.discard();
     },
     
     fire: function() {},
@@ -114,8 +114,8 @@ SpaceInvaders.enemy = {
 
         return this._$html;
     },
-    // o metodo dispose é para apagarmos inimigos da memoria
-    dispose: function() {
+    // o metodo discard é para apagarmos inimigos da memoria
+    discard: function() {
     	this.stopDance();
     	if(this._$html){
     		this._$html.remove();

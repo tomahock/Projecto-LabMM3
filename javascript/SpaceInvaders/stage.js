@@ -38,7 +38,7 @@ SpaceInvaders.stage = {
 		aud01.pause();
 		aud01.play();
     },
-    dispose: function() {
+    discard: function() {
     	$(window).off("onFire");
         if (this._$html){
             this._$html.remove();

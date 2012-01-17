@@ -21,7 +21,7 @@ SpaceInvaders.bulletCollection = {
     },
     
     remove: function(idx) {
-    	this._bullets.splice(idx, 1)[0].dispose();
+    	this._bullets.splice(idx, 1)[0].discard();
     	return this;
     },
     
@@ -42,7 +42,7 @@ SpaceInvaders.bulletCollection = {
         if (this._bullets){
         	var i = this._bullets.length - 1;
         	for(i; i>=0; i-=1){
-        		this.get(i).dispose();
+        		this.get(i).discard();
         	}
         	this._bullets = [];
         }
@@ -60,7 +60,7 @@ SpaceInvaders.bulletCollection = {
     	$(window).off("collision", this._removeByIdHandler);
     	$(window).off("topStageCollision", this._removeByIdHandler);
     },
-    dispose : function(){
+    discard : function(){
     	this.removeEvent();
     	this.removeAll();
     	this._bullets = null;
